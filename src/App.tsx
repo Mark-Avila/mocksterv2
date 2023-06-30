@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Home, Landing } from "./pages";
+import { Home, Landing, Mocks } from "./pages";
 import { PrivateRoute } from "./components";
 import { useSelector } from "react-redux";
 import { RootState } from "./main";
@@ -22,6 +22,14 @@ function App() {
         element={
           <PrivateRoute auth={{ isAuthenticated: isAuthenticated }}>
             <Home />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/mocks"
+        element={
+          <PrivateRoute auth={{ isAuthenticated: isAuthenticated }}>
+            <Mocks />
           </PrivateRoute>
         }
       />
