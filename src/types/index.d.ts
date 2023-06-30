@@ -52,3 +52,46 @@ export interface SubjectData {
   slug: string;
   user_id: string;
 }
+
+interface CreateCallbacksInterface {
+  details: {
+    onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onDropdownChange: (
+      e: React.MouseEvent<HTMLButtonElement>,
+      item: string
+    ) => void;
+  };
+  questions: {
+    onChoiceChange: (
+      e: React.ChangeEvent<HTMLInputElement>,
+      id: string
+    ) => void;
+    onTextAreaChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+    onCorrectChange: (id: string) => void;
+    onAddChoice: () => void;
+    onDeleteChoice: (id: string) => void;
+    onAddQuestion: () => void;
+    onDeleteQuestion: (id: string | string) => void;
+  };
+}
+
+export interface MockCreateData {
+  title: string;
+  subject: string;
+  desc: string;
+}
+
+interface QuestionBody {
+  id: string;
+  question: string;
+  choices: QuestionChoice[];
+  correct: string;
+}
+
+interface QuestionChoice {
+  id: string;
+  text: string;
+}
+
+type Tabs = "details" | "questions";
