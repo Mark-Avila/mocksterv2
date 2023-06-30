@@ -1,5 +1,10 @@
 import { MockCard, Navbar, SubjectCard } from "../components";
 import SectionHeader from "../components/SectionHeader";
+import { useEffect, useState } from "react";
+import { mockService } from "../services";
+import { useSelector } from "react-redux";
+import { RootState } from "../main";
+import { MockData } from "../types";
 
 function HomeProfileCard() {
   return (
@@ -23,6 +28,27 @@ function HomeProfileCard() {
 }
 
 function Home() {
+  const { data } = useSelector((state: RootState) => state.auth);
+  const [isLoading, setIsLoading] = useState(true);
+  const [mockData, setMockData] = useState<MockData[] | null>(null);
+
+  useEffect(() => {
+    const getMockData = async () => {
+      try {
+        if (!data) {
+          throw Error("Token not found");
+        }
+
+        const response = await mockService.getMocks(data);
+        setMockData(response);
+      } catch (err: unknown) {
+        throw Error((err as Error).message);
+      }
+    };
+
+    getMockData();
+  }, [data]);
+
   return (
     <>
       <Navbar />

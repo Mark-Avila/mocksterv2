@@ -22,3 +22,14 @@ export interface DefaultState<T> {
 }
 
 export type AuthState = DefaultState<string?>;
+
+export interface MockData {
+  _id?: string;
+  author?: string;
+  title: string;
+  subject: string;
+  count: number;
+  isBanned?: boolean;
+  desc: string;
+  items: QuestionBody[];
+}
