@@ -13,9 +13,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "../main";
 import { toast } from "react-toastify";
 import { userService } from "../services";
+import { MockCreateDetails, Navbar } from "../components";
+import MockCreateTabs from "../components/MockCreateTabs";
+import MockCreateQues from "../components/MockCreateQues";
 
-export const CreateCallbacksContext =
-  createContext<CreateCallbacksInterface | null>(null);
+export const CreateCallbacksContext = createContext<CreateCallbacksInterface>(
+  {} as CreateCallbacksInterface
+);
 
 function MockCreate() {
   const { data } = useSelector((state: RootState) => state.auth);
@@ -208,7 +212,59 @@ function MockCreate() {
     setQuestions((prev) => prev.filter((item) => item.id !== id));
   };
 
-  return <p></p>;
+  return (
+    <CreateCallbacksContext.Provider
+      value={{
+        details: {
+          onSubmit: onSubmit,
+          onChange: onChange,
+          onDropdownChange: onDropdownChange,
+        },
+        questions: {
+          onChoiceChange: onChoiceChange,
+          onTextAreaChange: onQuestionChange,
+          onCorrectChange: onCorrectChange,
+          onAddChoice: onAddChoice,
+          onDeleteChoice: onDeleteChoice,
+          onAddQuestion: onAddQuestion,
+          onDeleteQuestion: onDeleteQuestion,
+        },
+      }}
+    >
+      <Navbar />
+      <div className="flex max-h-full flex-col overflow-y-auto px-4 py-20 lg:mt-8 lg:px-64 xl:mt-0 xl:w-full xl:flex-1 xl:px-96 xl:pt-12">
+        <div className="">
+          <h1 className={`font-inter text-3xl font-bold text-red-500`}>
+            Create Reviewer
+          </h1>
+          <p className={`mt-2 text-gray-500 font-sans`}>
+            Create a reviewer for yourself or for others
+          </p>
+        </div>
+        <div className=" flex w-full justify-end lg:justify-center xl:justify-end">
+          <MockCreateTabs handleTab={handleTab} tab={tab} />
+        </div>
+        {tab === "details" && (
+          <MockCreateDetails
+            titleVal={formData.title}
+            descVal={formData.desc}
+            dropdownCurrent={
+              subjectData?.find((item) => item.slug === formData.subject)
+                ?.name || ""
+            }
+            dropdownItems={subjectData as SubjectData[]}
+          />
+        )}
+        {tab === "questions" && (
+          <MockCreateQues
+            questions={questions}
+            choices={choices}
+            question={question}
+          />
+        )}
+      </div>
+    </CreateCallbacksContext.Provider>
+  );
 }
 
 export default MockCreate;

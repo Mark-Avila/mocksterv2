@@ -53,6 +53,8 @@ export interface SubjectData {
   user_id: string;
 }
 
+export type DropdownItemChange = (e: any, item: string) => void;
+
 interface CreateCallbacksInterface {
   details: {
     onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;

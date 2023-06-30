@@ -5,6 +5,8 @@ import MockCard from "./MockCard";
 import SubjectCard from "./SubjectCard";
 import PageSpinner from "./PageSpinner";
 
+import MockCreateDetails from "./MockCreateDetails";
+
 export {
   Navbar,
   PageSpinner,
@@ -12,4 +14,5 @@ export {
   FormRegister,
   PrivateRoute,
   MockCard,
+  MockCreateDetails,
 };
