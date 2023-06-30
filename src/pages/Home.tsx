@@ -137,34 +137,15 @@ function Home() {
           <SectionHeader>Subjects</SectionHeader>
 
           <ul className="grid grid-cols-4 gap-4 mt-4">
-            <SubjectCard
-              name="Data structures and algorithms"
-              desc="Subject"
-              onClick={() => {
-                return;
-              }}
-            />
-            <SubjectCard
-              name="Data structures and algorithms"
-              desc="Subject"
-              onClick={() => {
-                return;
-              }}
-            />
-            <SubjectCard
-              name="Data structures and algorithms"
-              desc="Subject"
-              onClick={() => {
-                return;
-              }}
-            />
-            <SubjectCard
-              name="Data structures and algorithms"
-              desc="Subject"
-              onClick={() => {
-                return;
-              }}
-            />
+            {(subjectData as SubjectData[]).map((item: SubjectData) => (
+              <SubjectCard
+                name={item.name}
+                desc={item.desc}
+                onClick={() => {
+                  return;
+                }}
+              />
+            ))}
           </ul>
         </div>
       </main>
