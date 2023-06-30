@@ -23,13 +23,32 @@ export interface DefaultState<T> {
 
 export type AuthState = DefaultState<string?>;
 
+export interface UserData {
+  _id: string;
+  fname: string;
+  lname: string;
+  email: string;
+  tupid: string;
+  gender: string;
+}
+
 export interface MockData {
-  _id?: string;
-  author?: string;
+  _id: string;
+  author: string | UserData;
   title: string;
-  subject: string;
+  subject: string | SubjectData;
   count: number;
-  isBanned?: boolean;
+  isBanned: boolean;
   desc: string;
   items: QuestionBody[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SubjectData {
+  _id: string;
+  name: string;
+  desc: string;
+  slug: string;
+  user_id: string;
 }

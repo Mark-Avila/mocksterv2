@@ -1,10 +1,11 @@
-import { MockCard, Navbar, SubjectCard } from "../components";
+import { MockCard, Navbar, PageSpinner, SubjectCard } from "../components";
 import SectionHeader from "../components/SectionHeader";
 import { useEffect, useState } from "react";
-import { mockService } from "../services";
+import { mockService, subjectService } from "../services";
 import { useSelector } from "react-redux";
 import { RootState } from "../main";
-import { MockData } from "../types";
+import { MockData, SubjectData, UserData } from "../types";
+import moment from "moment";
 
 function HomeProfileCard() {
   return (
@@ -31,6 +32,7 @@ function Home() {
   const { data } = useSelector((state: RootState) => state.auth);
   const [isLoading, setIsLoading] = useState(true);
   const [mockData, setMockData] = useState<MockData[] | null>(null);
+  const [subjectData, setSubjectData] = useState<SubjectData[] | null>(null);
 
   useEffect(() => {
     const getMockData = async () => {
@@ -39,7 +41,12 @@ function Home() {
           throw Error("Token not found");
         }
 
-        const response = await mockService.getMocks(data);
+        const response = await mockService.getMocks({
+          token: data,
+          populate: "subject author",
+          excludePopulate: "-password -gender -createdAt -updatedAt",
+          excludeLocal: "-items",
+        });
         setMockData(response);
       } catch (err: unknown) {
         throw Error((err as Error).message);
@@ -48,6 +55,47 @@ function Home() {
 
     getMockData();
   }, [data]);
+
+  useEffect(() => {
+    const getSubjects = async () => {
+      try {
+        if (!data) {
+          throw Error("Token not found");
+        }
+        const response = await subjectService.getSubjects(data);
+        setSubjectData(response);
+      } catch (err: unknown) {
+        throw Error((err as Error).message);
+      }
+    };
+
+    getSubjects();
+  }, [data]);
+
+  useEffect(() => {
+    if (mockData && subjectData) {
+      setIsLoading(false);
+    }
+  }, [mockData, subjectData]);
+
+  const convertDate = (originalDate: string) => {
+    const formattedDate = moment(originalDate).format("DD/MM/YYYY");
+
+    return formattedDate; // Output: 29/06/2023
+  };
+
+  function limitString(str: string, maxLength: number): string {
+    if (str.length <= maxLength) {
+      return str; // Return the original string if it is shorter or equal to the maxLength
+    } else {
+      const truncatedString = str.substring(0, maxLength); // Get the substring up to the maxLength
+      return truncatedString + "..."; // Append '...' to the truncated string
+    }
+  }
+
+  if (isLoading) {
+    return <PageSpinner />;
+  }
 
   return (
     <>
@@ -70,35 +118,19 @@ function Home() {
         </div>
         <div className="mt-8">
           <SectionHeader>User created Mocks</SectionHeader>
-          <ul className="grid grid-cols-3 grid-rows-2 gap-4 mt-4">
-            <MockCard
-              title="Data Structures and algorithms"
-              creator="Jeeve Bentic"
-              subject="CS123"
-              items="50"
-              created="30/06/2023"
-            />
-            <MockCard
-              title="Data Structures and algorithms"
-              creator="Jeeve Bentic"
-              subject="CS123"
-              items="50"
-              created="30/06/2023"
-            />
-            <MockCard
-              title="Data Structures and algorithms"
-              creator="Jeeve Bentic"
-              subject="CS123"
-              items="50"
-              created="30/06/2023"
-            />
-            <MockCard
-              title="Data Structures and algorithms"
-              creator="Jeeve Bentic"
-              subject="CS123"
-              items="50"
-              created="30/06/2023"
-            />
+          <ul className="grid grid-cols-3 gap-4 mt-4">
+            {(mockData as MockData[]).map((item: MockData) => (
+              <MockCard
+                key={item._id}
+                title={item.title}
+                creator={`${(item.author as UserData).fname} ${
+                  (item.author as UserData).lname
+                }`}
+                subject={limitString((item.subject as SubjectData).name, 12)}
+                items={item.count.toString()}
+                created={convertDate(item.createdAt)}
+              />
+            ))}
           </ul>
         </div>
         <div className="mt-8">

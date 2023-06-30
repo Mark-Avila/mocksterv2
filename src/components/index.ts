@@ -3,5 +3,13 @@ import PrivateRoute from "./PrivateRoute";
 import Navbar from "./Navbar";
 import MockCard from "./MockCard";
 import SubjectCard from "./SubjectCard";
+import PageSpinner from "./PageSpinner";
 
-export { Navbar, SubjectCard, FormRegister, PrivateRoute, MockCard };
+export {
+  Navbar,
+  PageSpinner,
+  SubjectCard,
+  FormRegister,
+  PrivateRoute,
+  MockCard,
+};

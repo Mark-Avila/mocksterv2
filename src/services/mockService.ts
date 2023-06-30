@@ -36,10 +36,27 @@ const getMocksBySubject = async (token: string, subject: string) => {
   return response.data;
 };
 
-const getMocks = async (token: string) => {
+interface GetMocks {
+  token: string;
+  populate?: string;
+  excludePopulate?: string;
+  excludeLocal?: string;
+}
+
+const getMocks = async ({
+  token,
+  populate,
+  excludePopulate,
+  excludeLocal,
+}: GetMocks) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
+    },
+    params: {
+      populate: populate || "",
+      excludePopulate: excludePopulate || "",
+      excludeLocal: excludeLocal || "",
     },
   };
 
