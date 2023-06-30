@@ -12,3 +12,13 @@ export interface LoginInputs {
   email: string;
   pwd: string;
 }
+
+export interface DefaultState<T> {
+  loading: boolean;
+  success: boolean;
+  error: boolean;
+  message: string;
+  data: T;
+}
+
+export type AuthState = DefaultState<string?>;

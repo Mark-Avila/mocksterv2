@@ -1,10 +1,22 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+import { Provider } from "react-redux";
+import store from "./store.ts";
+import { BrowserRouter } from "react-router-dom";
+import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+export type RootState = ReturnType<typeof store.getState>;
+
+export type AppThunkDispatch = ThunkDispatch<RootState, unknown, AnyAction>;
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </React.StrictMode>
+);

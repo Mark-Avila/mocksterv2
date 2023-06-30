@@ -1,8 +1,12 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import { toast } from "react-toastify";
-import FormRegister from "../components/FormRegister";
-import { Form } from "react-router-dom";
+import { FormRegister } from "../components";
 import { LoginInputs, RegisterInputs } from "../types";
+import FormLogin from "../components/FormLogin";
+import { useDispatch, useSelector } from "react-redux";
+import { login, register, reset } from "../store";
+import { useNavigate } from "react-router-dom";
+import { AppThunkDispatch, RootState } from "../main";
 
 interface RegisterBody {
   fname: string;
@@ -13,12 +17,36 @@ interface RegisterBody {
   gender: 1 | 0;
 }
 
-const ToggleFormContext = createContext<{ toggleForm: () => void } | null>(
-  null
-);
+interface DefaultState<T> {
+  loading: boolean;
+  success: boolean;
+  error: boolean;
+  message: string;
+  data: T;
+}
+
+export const ToggleFormContext = createContext<{ toggleForm?: () => void }>({
+  toggleForm: undefined,
+});
 
 function Landing() {
   const [isRegister, setIsRegister] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { error, message } = useSelector((state: RootState) => state.auth);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (error) {
+      toast.error(message);
+      return;
+    }
+
+    dispatch(reset());
+  }, [error]);
+
+  const dispatch = useDispatch<AppThunkDispatch>();
 
   const [regFormInputs, setRegFormInputs] = useState<RegisterInputs>({
     fname: "",
@@ -51,7 +79,7 @@ function Landing() {
       gender: regFormInputs.gender ? 1 : 0,
     };
 
-    // dispatch(register(userData));
+    dispatch(register(userData));
   };
 
   const onLoginSubmit = (e: Event) => {
@@ -62,7 +90,7 @@ function Landing() {
       password: logFormInputs.pwd,
     };
 
-    // dispatch(login(userData));
+    dispatch(login(userData));
   };
 
   const onLoginChange = (e: any) => {
@@ -93,6 +121,10 @@ function Landing() {
 
   const toggleForm = () => setIsRegister(!isRegister);
 
+  if (isLoading) {
+    return <p>Loading</p>;
+  }
+
   return (
     <main
       className={`flex h-full min-h-full items-center justify-between font-inter xl:grid xl:grid-cols-2`}
@@ -112,29 +144,22 @@ function Landing() {
         {/*Right container*/}
         <div className="w-full lg:w-8/12 xl:w-[400px]">
           <ToggleFormContext.Provider value={{ toggleForm: toggleForm }}>
-            {/* {isRegister ? (
-                <FormRegister
-                  onSubmit={onRegisterSubmit}
-                  inputs={regFormInputs}
-                  onChange={onChange}
-                  onRadioChange={onRadioChange}
-                  disabled={loading}
-                />
-              ) : (
-                <FormLogin
-                  onSubmit={onLoginSubmit}
-                  disabled={loading}
-                  inputs={logFormInputs}
-                  onChange={onChange}
-                />
-              )} */}
-            <FormRegister
-              onSubmit={onRegisterSubmit}
-              inputs={regFormInputs}
-              onChange={onRegisterChange}
-              onRadioChange={onRadioChange}
-              disabled={false}
-            />
+            {isRegister ? (
+              <FormRegister
+                onSubmit={onRegisterSubmit}
+                inputs={regFormInputs}
+                onChange={onRegisterChange}
+                onRadioChange={onRadioChange}
+                disabled={false}
+              />
+            ) : (
+              <FormLogin
+                onSubmit={onLoginSubmit}
+                disabled={false}
+                inputs={logFormInputs}
+                onChange={onLoginChange}
+              />
+            )}
           </ToggleFormContext.Provider>
         </div>
       </div>
