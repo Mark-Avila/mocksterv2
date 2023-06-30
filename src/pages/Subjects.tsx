@@ -5,12 +5,14 @@ import { useState, useEffect } from "react";
 import { RootState } from "../main";
 import { subjectService } from "../services";
 import { SubjectData } from "../types";
+import { createSearchParams, useNavigate } from "react-router-dom";
 
 function Subjects() {
   const { data } = useSelector((state: RootState) => state.auth);
 
   const [subjectData, setSubjectData] = useState<SubjectData[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getSubjects = async () => {
@@ -34,6 +36,16 @@ function Subjects() {
     }
   }, [subjectData]);
 
+  const handleItemClick = (slug: string, title: string) => {
+    navigate({
+      pathname: "/mocks",
+      search: createSearchParams({
+        title: title,
+        subject: slug,
+      }).toString(),
+    });
+  };
+
   if (isLoading) {
     return <PageSpinner />;
   }
@@ -51,9 +63,7 @@ function Subjects() {
               key={item._id}
               name={item.name}
               desc={item.desc}
-              onClick={() => {
-                return;
-              }}
+              onClick={() => handleItemClick(item.name, item.slug)}
             />
           ))}
         </ul>

@@ -3,6 +3,13 @@ import { MockData } from "../types";
 
 const API_URL = "http://localhost:5000/api/mock";
 
+interface RequestParams {
+  token: string;
+  populate?: string;
+  excludePopulate?: string;
+  excludeLocal?: string;
+}
+
 const createMock = async (mockData: MockData, token: string) => {
   const config = {
     headers: {
@@ -25,30 +32,38 @@ const getMocksByUserId = async (token: string, id: string) => {
   return response.data;
 };
 
-const getMocksBySubject = async (token: string, subject: string) => {
+interface GetMocksBySubject extends RequestParams {
+  slug: string;
+}
+
+const getMocksBySubject = async ({
+  token,
+  populate,
+  excludePopulate,
+  excludeLocal,
+  slug,
+}: GetMocksBySubject) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
+    params: {
+      populate: populate || "",
+      excludePopulate: excludePopulate || "",
+      excludeLocal: excludeLocal || "",
+    },
   };
 
-  const response = await axios.get(`${API_URL}/${subject}/slug`, config);
+  const response = await axios.get(`${API_URL}/${slug}/slug`, config);
   return response.data;
 };
-
-interface GetMocks {
-  token: string;
-  populate?: string;
-  excludePopulate?: string;
-  excludeLocal?: string;
-}
 
 const getMocks = async ({
   token,
   populate,
   excludePopulate,
   excludeLocal,
-}: GetMocks) => {
+}: RequestParams) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

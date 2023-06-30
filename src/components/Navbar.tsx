@@ -32,7 +32,7 @@ function Navbar() {
   const handleDropdown = () => setDropdown(!dropdown);
 
   return (
-    <nav className="bg-white flex justify-between shadow-md h-16 px-4 xl:px-20">
+    <nav className="bg-white flex justify-between shadow-md h-16 px-4 xl:px-20 flex-shrink-0">
       <ul className="h-full w-full flex items-center justify-start">
         <h1 className="font-inter text-xl xl:text-2xl font-bold text-gray-600">
           <span className="text-red-400">Mocks</span>ter
