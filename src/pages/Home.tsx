@@ -11,14 +11,14 @@ import { convertDate, limitString } from "../utils";
 
 function HomeProfileCard() {
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-md grid grid-cols-2">
+    <div className="grid grid-cols-2 overflow-hidden rounded-lg bg-white shadow-md">
       <div className="bg-slate-400"></div>
-      <div className="h-full flex flex-col">
+      <div className="flex h-full flex-col">
         <div className="p-4">
-          <p className="font-inter text-slate-600 font-bold">
+          <p className="font-inter font-bold text-slate-600">
             Mark Christian Avila
           </p>
-          <p className="font-inter text-slate-600 text-sm">TUPM-20-2120</p>
+          <p className="font-inter text-sm text-slate-600">TUPM-20-2120</p>
         </div>
         <div className="mt-auto h-14 border-t-2 border-slate-300">
           <button className="h-full w-fit px-4 font-bold text-red-400">
@@ -49,7 +49,6 @@ function Home() {
           excludePopulate: "-password -gender -createdAt -updatedAt",
           excludeLocal: "-items",
         });
-        console.log(response);
         setMockData(response);
       } catch (err: unknown) {
         throw Error((err as Error).message);
@@ -93,7 +92,7 @@ function Home() {
           Hello there!{" "}
           <span className="text-red-500">Mark Christian Avila</span>
         </SectionHeader>
-        <div className="grid lg:grid-cols-2 gap-4 mt-4">
+        <div className="mt-4 grid gap-4 lg:grid-cols-2">
           <MockCard
             showRecent
             title="Data Structures and algorithms"
@@ -106,7 +105,7 @@ function Home() {
         </div>
         <div className="mt-8">
           <SectionHeader>User created Mocks</SectionHeader>
-          <ul className="grid grid-cols-3 gap-4 mt-4">
+          <ul className="mt-4 grid grid-cols-3 gap-4">
             {(mockData as MockData[]).map((item: MockData) => (
               <MockCard
                 key={item._id}
@@ -124,9 +123,10 @@ function Home() {
         <div className="mt-8">
           <SectionHeader>Subjects</SectionHeader>
 
-          <ul className="grid grid-cols-4 gap-4 mt-4">
+          <ul className="mt-4 grid grid-cols-4 gap-4">
             {(subjectData as SubjectData[]).map((item: SubjectData) => (
               <SubjectCard
+                key={item._id}
                 name={item.name}
                 desc={item.desc}
                 onClick={() => {

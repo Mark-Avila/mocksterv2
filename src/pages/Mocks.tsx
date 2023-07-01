@@ -76,7 +76,7 @@ function Mocks() {
           </SectionHeader>
         )}
         {mockData?.length !== 0 && (
-          <ul className="grid grid-cols-3 mt-4">
+          <ul className="grid grid-cols-3 mt-4 gap-4">
             {(mockData as MockData[]).map((item: MockData) => (
               <MockCard
                 key={item._id}

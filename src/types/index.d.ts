@@ -97,3 +97,16 @@ interface QuestionChoice {
 }
 
 type Tabs = "details" | "questions";
+
+export interface QuestionAnswers {
+  ques_id: string;
+  answer_id: string;
+}
+
+export interface ResultData {
+  _id?: string;
+  reviewer: string;
+  score: number;
+  total: number;
+  answers: QuestionAnswers[];
+}

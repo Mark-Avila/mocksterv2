@@ -1,7 +1,7 @@
 import axios from "axios";
 import { MockData } from "../types";
 
-const API_URL = "http://localhost:5000/api/mock/";
+const API_URL = "http://localhost:5000/api/mock";
 
 interface RequestParams {
   token: string;

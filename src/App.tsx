@@ -1,10 +1,15 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Home, Landing, MockCreate, Mocks, Subjects } from "./pages";
+import {
+  Home,
+  Landing,
+  MockAnswer,
+  MockCreate,
+  Mocks,
+  Subjects,
+} from "./pages";
 import { PrivateRoute } from "./components";
 import { useSelector } from "react-redux";
 import { RootState } from "./main";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const { data } = useSelector((state: RootState) => state.auth);
@@ -13,8 +18,6 @@ function App() {
 
   return (
     <>
-      <ToastContainer />
-
       <Routes>
         <Route
           path="/"
@@ -43,6 +46,14 @@ function App() {
           element={
             <PrivateRoute auth={{ isAuthenticated: isAuthenticated }}>
               <MockCreate />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/mocks/answer"
+          element={
+            <PrivateRoute auth={{ isAuthenticated: isAuthenticated }}>
+              <MockAnswer />
             </PrivateRoute>
           }
         />
