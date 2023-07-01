@@ -6,13 +6,18 @@ import { RootState } from "../main";
 import { mockService } from "../services";
 import { MockData, SubjectData, UserData } from "../types";
 import { convertDate, limitString } from "../utils";
-import { useSearchParams } from "react-router-dom";
+import {
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 
 function Mocks() {
   const { data } = useSelector((state: RootState) => state.auth);
   const [mockData, setMockData] = useState<MockData[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getMockData = async () => {
@@ -57,6 +62,15 @@ function Mocks() {
     }
   }, [mockData]);
 
+  const onMockStart = (id: string) => {
+    navigate({
+      pathname: "/mocks/answer",
+      search: createSearchParams({
+        id: id,
+      }).toString(),
+    });
+  };
+
   if (isLoading) {
     return <PageSpinner />;
   }
@@ -64,7 +78,7 @@ function Mocks() {
   return (
     <>
       <Navbar />
-      <main className="px-4 xl:px-48 xl:pt-16 h-full flex flex-col">
+      <main className="flex h-full flex-col px-4 xl:px-48 xl:pt-16">
         {searchParams.has("subject") ? (
           <SectionHeader>
             <span className="text-red-400">Mocks</span> for "
@@ -76,11 +90,12 @@ function Mocks() {
           </SectionHeader>
         )}
         {mockData?.length !== 0 && (
-          <ul className="grid grid-cols-3 mt-4 gap-4">
+          <ul className="mt-4 grid grid-cols-3 gap-4">
             {(mockData as MockData[]).map((item: MockData) => (
               <MockCard
                 key={item._id}
                 title={item.title}
+                onStart={() => onMockStart(item._id)}
                 creator={
                   Array.isArray(item.author)
                     ? `${(item.author[0] as UserData).fname} ${
@@ -103,9 +118,9 @@ function Mocks() {
           </ul>
         )}
         {mockData?.length === 0 && (
-          <div className="w-full h-3/4 flex items-center justify-center flex-col">
-            <h1 className="text-7xl mb-8 font-inter font-bold text-slate-400">{`:(`}</h1>
-            <h1 className="text-3xl font-inter font-bold text-slate-400">
+          <div className="flex h-3/4 w-full flex-col items-center justify-center">
+            <h1 className="mb-8 font-inter text-7xl font-bold text-slate-400">{`:(`}</h1>
+            <h1 className="font-inter text-3xl font-bold text-slate-400">
               Oops! Nothing found
             </h1>
           </div>

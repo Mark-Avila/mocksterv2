@@ -5,5 +5,15 @@ import Subjects from "./Subjects";
 import MockCreate from "./MockCreate";
 import MockAnswer from "./MockAnswer";
 import Result from "./Results";
+import Profile from "./Profile";
 
-export { Landing, Home, Mocks, Subjects, MockCreate, MockAnswer, Result };
+export {
+  Profile,
+  Landing,
+  Home,
+  Mocks,
+  Subjects,
+  MockCreate,
+  MockAnswer,
+  Result,
+};

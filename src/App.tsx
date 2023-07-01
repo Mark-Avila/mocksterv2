@@ -5,6 +5,7 @@ import {
   MockAnswer,
   MockCreate,
   Mocks,
+  Profile,
   Result,
   Subjects,
 } from "./pages";
@@ -31,6 +32,14 @@ function App() {
           element={
             <PrivateRoute auth={{ isAuthenticated: isAuthenticated }}>
               <Home />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute auth={{ isAuthenticated: isAuthenticated }}>
+              <Profile />
             </PrivateRoute>
           }
         />

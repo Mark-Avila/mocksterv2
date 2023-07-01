@@ -21,7 +21,7 @@ function MockAnswer() {
   const { data } = useSelector((state: RootState) => state.auth);
   const [mockData, setMockData] = useState<MockData | null>(null);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -48,6 +48,12 @@ function MockAnswer() {
 
     getMockData();
   }, []);
+
+  useEffect(() => {
+    if (mockData) {
+      setIsLoading(false);
+    }
+  }, [mockData]);
 
   const onCheck = (ques_id: string, answer_id: string) => {
     const alreadyChecked = answers.some((item) => item.ques_id === ques_id);
