@@ -49,6 +49,7 @@ function Home() {
           excludePopulate: "-password -gender -createdAt -updatedAt",
           excludeLocal: "-items",
         });
+        console.log(response);
         setMockData(response);
       } catch (err: unknown) {
         throw Error((err as Error).message);
@@ -75,7 +76,7 @@ function Home() {
   }, [data]);
 
   useEffect(() => {
-    if (mockData && subjectData) {
+    if (mockData !== null && subjectData !== null) {
       setIsLoading(false);
     }
   }, [mockData, subjectData]);

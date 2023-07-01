@@ -33,8 +33,8 @@ function MockCreateTab({ active, text, onClick }: MockCreateTabProps) {
     <button
       onClick={onClick}
       className={`w-full h-full ${
-        active ? "bg-red-500 font-bold" : "bg-white text-gray-500"
-      } font-inter text-base lg:text-sm text-white`}
+        active ? "bg-red-500 font-bold text-white" : "bg-white text-gray-500"
+      } font-inter text-base lg:text-sm`}
     >
       {text}
     </button>

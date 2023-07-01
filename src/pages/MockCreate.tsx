@@ -12,10 +12,11 @@ import {
 import { useSelector } from "react-redux";
 import { RootState } from "../main";
 import { toast } from "react-toastify";
-import { userService } from "../services";
-import { MockCreateDetails, Navbar } from "../components";
+import { mockService, subjectService, userService } from "../services";
+import { MockCreateDetails, Navbar, PageSpinner } from "../components";
 import MockCreateTabs from "../components/MockCreateTabs";
 import MockCreateQues from "../components/MockCreateQues";
+import { useNavigate } from "react-router-dom";
 
 export const CreateCallbacksContext = createContext<CreateCallbacksInterface>(
   {} as CreateCallbacksInterface
@@ -25,6 +26,7 @@ function MockCreate() {
   const { data } = useSelector((state: RootState) => state.auth);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [subjectData, setSubjectData] = useState<SubjectData[] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [formData, setFormData] = useState<MockCreateData>({
     title: "",
@@ -47,6 +49,8 @@ function MockCreate() {
 
   const [tab, setTab] = useState<Tabs>("details");
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -61,6 +65,27 @@ function MockCreate() {
 
     getUser();
   }, []);
+
+  useEffect(() => {
+    const getSubjects = async () => {
+      try {
+        if (data) {
+          const response = await subjectService.getSubjects(data);
+          setSubjectData(response);
+        }
+      } catch (err: unknown) {
+        throw Error("Failed to fetch user data in mocks/create");
+      }
+    };
+
+    getSubjects();
+  }, []);
+
+  useEffect(() => {
+    if (userData && subjectData) {
+      setIsLoading(false);
+    }
+  }, [subjectData, userData]);
 
   const generateRandomId = () => {
     const min = 1000;
@@ -109,12 +134,6 @@ function MockCreate() {
 
   const handleTab = (tab: Tabs) => setTab(tab);
 
-  // const subjectItems = [
-  //   "Artificial Intelligence",
-  //   "Software Engineering",
-  //   "Data modelling and simulation",
-  // ];
-
   const onChange = (e: any) => {
     return setFormData((prev) => ({
       ...prev,
@@ -135,14 +154,12 @@ function MockCreate() {
     }));
   };
 
-  const onSubmit = (e: any) => {
-    e.preventDefault();
+  const onSubmit = (e: unknown) => {
+    (e as FormDataEvent).preventDefault();
 
     const currentSub = (subjectData as SubjectData[]).find(
       (item) => item.slug === formData.subject
     );
-
-    console.log(questions.length);
 
     if (questions.length === 0) {
       toast.error("Reviewer doesn't have questions");
@@ -161,6 +178,14 @@ function MockCreate() {
       };
 
       //   dispatch(createMock(mockData));
+
+      mockService
+        .createMock(mockData as MockData, data as string)
+        .then((response: MockData) => {
+          toast.success(`Succesfully created mock ${response.title}`);
+          navigate("/mocks");
+        })
+        .catch((err: unknown) => toast.error((err as Error).message));
     }
   };
 
@@ -211,6 +236,10 @@ function MockCreate() {
 
     setQuestions((prev) => prev.filter((item) => item.id !== id));
   };
+
+  if (isLoading) {
+    return <PageSpinner />;
+  }
 
   return (
     <CreateCallbacksContext.Provider

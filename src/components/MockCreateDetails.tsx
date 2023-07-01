@@ -39,6 +39,7 @@ function MockCreateDetails(props: MockCreateDetailsProps) {
       />
       <div className="h-12 w-full xl:flex xl:justify-end">
         <button
+          type="submit"
           className={`bg-red-500 text-white xl:w-1/4 xl:text-sm font-inter first-letter h-full w-full rounded-md font-bold shadow-md`}
         >
           Create reviewer
