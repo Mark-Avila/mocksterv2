@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../main";
 import { MockData, SubjectData, UserData } from "../types";
 import moment from "moment";
-import { Navigate } from "react-router-dom";
+import { Navigate, createSearchParams, useNavigate } from "react-router-dom";
 import { convertDate, limitString } from "../utils";
 
 function HomeProfileCard() {
@@ -35,6 +35,8 @@ function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [mockData, setMockData] = useState<MockData[] | null>(null);
   const [subjectData, setSubjectData] = useState<SubjectData[] | null>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getMockData = async () => {
@@ -80,6 +82,15 @@ function Home() {
     }
   }, [mockData, subjectData]);
 
+  const onMockStart = (id: string) => {
+    navigate({
+      pathname: "/mocks/answer",
+      search: createSearchParams({
+        id: id,
+      }).toString(),
+    });
+  };
+
   if (isLoading) {
     return <PageSpinner />;
   }
@@ -100,6 +111,9 @@ function Home() {
             subject="CS123"
             items="50"
             created="30/06/2023"
+            onStart={() => {
+              return;
+            }}
           />
           <HomeProfileCard />
         </div>
@@ -116,6 +130,7 @@ function Home() {
                 subject={limitString((item.subject as SubjectData).name, 12)}
                 items={item.count.toString()}
                 created={convertDate(item.createdAt)}
+                onStart={() => onMockStart(item._id)}
               />
             ))}
           </ul>

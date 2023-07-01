@@ -80,7 +80,7 @@ function MockAnswer() {
 
   const handleOnExit = (e: any) => {
     e.preventDefault();
-    navigate("/mocks");
+    navigate(-1);
   };
 
   const handleOnSubmit = async (e: unknown) => {
