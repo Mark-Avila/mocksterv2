@@ -3,7 +3,11 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { MockData, QuestionAnswers, ResultData } from "../types";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import {
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { RootState } from "../main";
 import { PageSpinner } from "../components";
 import AnswerProgress from "../components/AnswerProgress";
@@ -105,9 +109,17 @@ function MockAnswer() {
 
         if (data) {
           try {
-            await resultService.createResult(newResult, data);
+            const response: ResultData = await resultService.createResult(
+              newResult,
+              data
+            );
             toast.success("Successfully submitted mock test");
-            navigate("/home");
+            navigate({
+              pathname: "/mocks/results",
+              search: createSearchParams({
+                id: response._id as string,
+              }).toString(),
+            });
           } catch (err: unknown) {
             toast.error((err as Error).message);
             throw Error((err as Error).message);

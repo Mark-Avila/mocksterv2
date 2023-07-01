@@ -5,6 +5,7 @@ import {
   MockAnswer,
   MockCreate,
   Mocks,
+  Result,
   Subjects,
 } from "./pages";
 import { PrivateRoute } from "./components";
@@ -54,6 +55,14 @@ function App() {
           element={
             <PrivateRoute auth={{ isAuthenticated: isAuthenticated }}>
               <MockAnswer />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/mocks/result"
+          element={
+            <PrivateRoute auth={{ isAuthenticated: isAuthenticated }}>
+              <Result />
             </PrivateRoute>
           }
         />

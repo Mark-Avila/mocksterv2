@@ -1,14 +1,7 @@
 import axios from "axios";
-import { MockData } from "../types";
+import { MockData, RequestParams } from "../types";
 
 const API_URL = "http://localhost:5000/api/mock";
-
-interface RequestParams {
-  token: string;
-  populate?: string;
-  excludePopulate?: string;
-  excludeLocal?: string;
-}
 
 const createMock = async (mockData: MockData, token: string) => {
   const config = {

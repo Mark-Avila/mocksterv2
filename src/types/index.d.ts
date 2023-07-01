@@ -105,8 +105,15 @@ export interface QuestionAnswers {
 
 export interface ResultData {
   _id?: string;
-  reviewer: string;
+  reviewer: string | MockData;
   score: number;
   total: number;
   answers: QuestionAnswers[];
+}
+
+interface RequestParams {
+  token: string;
+  populate?: string;
+  excludePopulate?: string;
+  excludeLocal?: string;
 }

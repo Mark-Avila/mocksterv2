@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ResultData } from "../types";
+import { RequestParams, ResultData } from "../types";
 
 const API_URL = "http://localhost:5000/api/result/";
 
@@ -15,10 +15,25 @@ const createResult = async (result: ResultData, token: string) => {
   return response.data;
 };
 
-const getResultById = async (result_id: string, token: string) => {
+interface GetResultById extends RequestParams {
+  result_id: string;
+}
+
+const getResultById = async ({
+  token,
+  populate,
+  excludePopulate,
+  excludeLocal,
+  result_id,
+}: GetResultById) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
+    },
+    params: {
+      populate: populate || "",
+      excludePopulate: excludePopulate || "",
+      excludeLocal: excludeLocal || "",
     },
   };
 
