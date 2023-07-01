@@ -1,6 +1,9 @@
 import { ReactNode, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
+import { logout } from "../store";
+import { useDispatch } from "react-redux";
+import { AppThunkDispatch } from "../main";
 
 interface NavLinkProps {
   children: ReactNode;
@@ -23,9 +26,10 @@ function NavLink({ children, to }: NavLinkProps) {
 interface NavDropdownItem {
   children: ReactNode;
   to?: string;
+  onClick?: (e: unknown) => void;
 }
 
-function NavDropdownItem({ children, to }: NavDropdownItem) {
+function NavDropdownItem({ children, to, onClick }: NavDropdownItem) {
   return (
     <li className="h-8">
       {to ? (
@@ -36,7 +40,10 @@ function NavDropdownItem({ children, to }: NavDropdownItem) {
           {children}
         </Link>
       ) : (
-        <button className="h-full w-full rounded-md px-2 text-right font-inter text-xs hover:bg-slate-200 hover:text-slate-700">
+        <button
+          onClick={onClick}
+          className="h-full w-full rounded-md px-2 text-right font-inter text-xs hover:bg-slate-200 hover:text-slate-700"
+        >
           {children}
         </button>
       )}
@@ -47,6 +54,7 @@ function NavDropdownItem({ children, to }: NavDropdownItem) {
 function Navbar() {
   const [dropdown, setDropdown] = useState(false);
   const handleDropdown = () => setDropdown(!dropdown);
+  const dispatch = useDispatch<AppThunkDispatch>();
 
   return (
     <nav className="flex h-16 flex-shrink-0 justify-between bg-white px-4 shadow-md xl:px-20">
@@ -67,7 +75,9 @@ function Navbar() {
             <ul className="absolute -left-28 mt-4 flex w-36 flex-col gap-4 rounded-md bg-white p-2 text-right text-sm font-bold text-gray-400 shadow-md">
               <NavDropdownItem to="/profile">Profile</NavDropdownItem>
               <NavDropdownItem>Settings</NavDropdownItem>
-              <NavDropdownItem>Logout</NavDropdownItem>
+              <NavDropdownItem onClick={() => dispatch(logout())}>
+                Logout
+              </NavDropdownItem>
             </ul>
           )}
         </li>

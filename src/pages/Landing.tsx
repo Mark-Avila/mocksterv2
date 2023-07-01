@@ -130,11 +130,11 @@ function Landing() {
       className={`flex h-full min-h-full items-center justify-between font-inter xl:grid xl:grid-cols-2`}
     >
       <div
-        className={`bg-bright box-border hidden h-full w-full bg-red-500 bg-studying bg-cover p-12 xl:block font-inter`}
+        className={`bg-bright bg-studying box-border hidden h-full w-full bg-red-500 bg-cover p-12 font-inter xl:block`}
       >
-        <h1 className={`font-inter text-7xl font-bold`}>Mockster</h1>
+        <h1 className={`font-inter text-7xl font-bold text-white`}>Mockster</h1>
         <div className="my-8 h-2 w-32 bg-white"></div>
-        <p className={`font-inter w-3/4 text-3xl font-bold text-white`}>
+        <p className={`w-3/4 font-inter text-3xl font-bold text-white`}>
           Practice makes perfect with when it’s like the real thing
         </p>
       </div>
