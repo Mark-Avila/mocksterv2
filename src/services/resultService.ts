@@ -1,7 +1,7 @@
 import axios from "axios";
 import { RequestParams, ResultData } from "../types";
 
-const API_URL = "http://localhost:5000/api/result/";
+const API_URL = `${import.meta.env.VITE_API_ROUTE}/result`;
 
 const createResult = async (result: ResultData, token: string) => {
   const config = {

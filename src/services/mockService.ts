@@ -1,7 +1,7 @@
 import axios from "axios";
 import { MockData, RequestParams } from "../types";
 
-const API_URL = "http://localhost:5000/api/mock";
+const API_URL = `${import.meta.env.VITE_API_ROUTE}/mock`;
 
 const createMock = async (mockData: MockData, token: string) => {
   const config = {
