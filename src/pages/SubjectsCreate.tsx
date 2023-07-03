@@ -1,15 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { Navbar, PageSpinner, TextInput } from "../components";
 import { subjectService, userService } from "../services";
-import {
-  ChangeEvent,
-  FormEvent,
-  SyntheticEvent,
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 import { SubjectData, UserData } from "../types";
-import { convertToSlug } from "../utils";
 import { useSelector } from "react-redux";
 import { RootState } from "../main";
 import { toast } from "react-toastify";

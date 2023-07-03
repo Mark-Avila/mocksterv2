@@ -106,10 +106,10 @@ function Home() {
   }, [data]);
 
   useEffect(() => {
-    if (mockData && subjectData && avatar) {
+    if (mockData && subjectData && avatar && userData) {
       setIsLoading(false);
     }
-  }, [mockData, subjectData, avatar]);
+  }, [mockData, subjectData, avatar, userData]);
 
   const onMockStart = (id: string) => {
     navigate({

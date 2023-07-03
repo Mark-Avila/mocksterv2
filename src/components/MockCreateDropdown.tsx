@@ -1,4 +1,4 @@
-import { FaAngleDown, FaAngleRight } from "react-icons/fa";
+import { FaAngleDown } from "react-icons/fa";
 import MockCreateDropdownItem from "./MockCreateDropdownItem";
 import { useState, useContext } from "react";
 import { CreateCallbacksContext } from "../pages/MockCreate";
@@ -18,8 +18,8 @@ function MockCreateDropdown({
   const [active, setActive] = useState(false);
   const { details } = useContext(CreateCallbacksContext);
 
-  const toggleDropdown = (e: any) => {
-    e.preventDefault();
+  const toggleDropdown = (e: unknown) => {
+    (e as FormDataEvent).preventDefault();
     setActive(!active);
   };
 

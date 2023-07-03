@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { MockData, QuestionAnswers, ResultData } from "../types";
@@ -78,8 +77,8 @@ function MockAnswer() {
     return setAnswers((prev) => [...prev, newAnswer]);
   };
 
-  const handleOnExit = (e: any) => {
-    e.preventDefault();
+  const handleOnExit = (e: unknown) => {
+    (e as FormDataEvent).preventDefault();
     navigate(-1);
   };
 

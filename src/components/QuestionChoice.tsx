@@ -15,7 +15,7 @@ function QuestionChoice({
   ques_id,
   onCheck,
 }: QuestionChoiceProps) {
-  const handleOnCheck = (e: any) => {
+  const handleOnCheck = () => {
     if (onCheck) {
       onCheck(ques_id, id);
     }
@@ -33,7 +33,7 @@ function QuestionChoice({
       />
       <label
         htmlFor="mock-q1-c1"
-        className={`text-gray-500 lg:text-sm font-inter ${
+        className={`font-inter text-gray-500 lg:text-sm ${
           checked ? "font-bold text-gray-700" : ""
         }`}
       >

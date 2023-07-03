@@ -5,7 +5,6 @@ import { LoginInputs, RegisterInputs } from "../types";
 import FormLogin from "../components/FormLogin";
 import { useDispatch, useSelector } from "react-redux";
 import { login, register, reset } from "../store";
-import { useNavigate } from "react-router-dom";
 import { AppThunkDispatch, RootState } from "../main";
 
 interface RegisterBody {
@@ -17,25 +16,15 @@ interface RegisterBody {
   gender: 1 | 0;
 }
 
-interface DefaultState<T> {
-  loading: boolean;
-  success: boolean;
-  error: boolean;
-  message: string;
-  data: T;
-}
-
 export const ToggleFormContext = createContext<{ toggleForm?: () => void }>({
   toggleForm: undefined,
 });
 
 function Landing() {
   const [isRegister, setIsRegister] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
 
   const { error, message } = useSelector((state: RootState) => state.auth);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (error) {

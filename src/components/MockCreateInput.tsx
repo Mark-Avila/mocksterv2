@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { FaAngleDown, FaAngleRight } from "react-icons/fa";
 import { useContext } from "react";
 import { CreateCallbacksContext } from "../pages/MockCreate";
 
@@ -20,7 +18,7 @@ function MockCreateInput({
 
   return (
     <div className="mb-8 flex flex-col">
-      <label className={`font-bold text-gray-600 lg:text-sm font-inter`}>
+      <label className={`font-inter font-bold text-gray-600 lg:text-sm`}>
         {title}
       </label>
       <div className="mt-2 h-12 w-full overflow-hidden rounded-md shadow-md">
@@ -28,7 +26,7 @@ function MockCreateInput({
           value={value}
           onChange={details.onChange}
           name={htmlName}
-          className={`h-full w-full px-4 text-gray-600 lg:text-sm font-sans rounded-md outline-none`}
+          className={`h-full w-full rounded-md px-4 font-sans text-gray-600 outline-none lg:text-sm`}
           type="text"
           placeholder={placeholder ? placeholder : ""}
         />

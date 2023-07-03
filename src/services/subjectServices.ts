@@ -39,7 +39,7 @@ const getSubjects = async (token: string) => {
   return response.data;
 };
 
-const getSubjectByUserId = async (user_id: string, token: string) => {
+const getSubjectByUserId = async (token: string) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

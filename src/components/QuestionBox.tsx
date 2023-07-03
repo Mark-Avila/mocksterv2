@@ -1,7 +1,6 @@
 import QuestionChoice from "./QuestionChoice";
 import { QuestionBody } from "../types";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { useContext } from "react";
 
 interface QuestionBoxProps extends QuestionBody {
   number: number | string;
@@ -33,7 +32,7 @@ function QuestionBox({
   return (
     <li className="rounded-md bg-white  p-6 shadow-md">
       <div className="mb-4 flex w-full justify-between">
-        <h1 className={`text-3xl text-gray-600 font-inter $ font-bold`}>
+        <h1 className={`$ font-inter text-3xl font-bold text-gray-600`}>
           {number}.{" "}
           {isChecking && (
             <span

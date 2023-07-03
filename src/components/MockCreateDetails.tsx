@@ -4,8 +4,6 @@ import MockCreateInput from "./MockCreateInput";
 import { SubjectData } from "../types";
 import MockCreateDropdown from "./MockCreateDropdown";
 
-type VoidFunc = (e: any) => void;
-
 interface MockCreateDetailsProps {
   dropdownCurrent: string;
   dropdownItems: SubjectData[];
@@ -40,7 +38,7 @@ function MockCreateDetails(props: MockCreateDetailsProps) {
       <div className="h-12 w-full xl:flex xl:justify-end">
         <button
           type="submit"
-          className={`bg-red-500 text-white xl:w-1/4 xl:text-sm font-inter first-letter h-full w-full rounded-md font-bold shadow-md`}
+          className={`first-letter h-full w-full rounded-md bg-red-500 font-inter font-bold text-white shadow-md xl:w-1/4 xl:text-sm`}
         >
           Create reviewer
         </button>
