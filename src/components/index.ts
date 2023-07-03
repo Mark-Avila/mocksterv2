@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import MockCard from "./MockCard";
 import SubjectCard from "./SubjectCard";
 import PageSpinner from "./PageSpinner";
-
+import TextInput from "./TextInput";
 import MockCreateDetails from "./MockCreateDetails";
 
 export {
@@ -15,4 +15,5 @@ export {
   PrivateRoute,
   MockCard,
   MockCreateDetails,
+  TextInput,
 };

@@ -14,3 +14,7 @@ export function limitString(str: string, maxLength: number): string {
     return truncatedString + "..."; // Append '...' to the truncated string
   }
 }
+
+export function convertToSlug(str: string): string {
+  return str.toLowerCase().replace(/\s+/g, "_");
+}

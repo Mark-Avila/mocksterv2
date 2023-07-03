@@ -8,6 +8,7 @@ import {
   Profile,
   Result,
   Subjects,
+  SubjectsCreate,
 } from "./pages";
 import { PrivateRoute } from "./components";
 import { useSelector } from "react-redux";
@@ -80,6 +81,14 @@ function App() {
           element={
             <PrivateRoute auth={{ isAuthenticated: isAuthenticated }}>
               <Subjects />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/subjects/create"
+          element={
+            <PrivateRoute auth={{ isAuthenticated: isAuthenticated }}>
+              <SubjectsCreate />
             </PrivateRoute>
           }
         />

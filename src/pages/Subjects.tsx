@@ -46,6 +46,10 @@ function Subjects() {
     });
   };
 
+  const handleOnCreateNew = () => {
+    navigate("/subjects/create");
+  };
+
   if (isLoading) {
     return <PageSpinner />;
   }
@@ -58,6 +62,12 @@ function Subjects() {
           <SectionHeader>
             Browse <span className="text-red-400">subjects</span>
           </SectionHeader>
+          <button
+            onClick={handleOnCreateNew}
+            className="rounded-md bg-red-500 px-4 py-2 font-inter font-bold text-white shadow-md shadow-gray-300 transition ease-in-out hover:bg-red-600"
+          >
+            Create new
+          </button>
         </div>
         <ul className="mt-4 grid grid-cols-4 gap-4">
           {(subjectData as SubjectData[]).map((item: SubjectData) => (

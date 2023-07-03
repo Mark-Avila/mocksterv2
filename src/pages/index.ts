@@ -6,6 +6,7 @@ import MockCreate from "./MockCreate";
 import MockAnswer from "./MockAnswer";
 import Result from "./Results";
 import Profile from "./Profile";
+import SubjectsCreate from "./SubjectsCreate";
 
 export {
   Profile,
@@ -16,4 +17,5 @@ export {
   MockCreate,
   MockAnswer,
   Result,
+  SubjectsCreate,
 };
