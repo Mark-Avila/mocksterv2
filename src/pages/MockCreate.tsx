@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, ChangeEvent } from "react";
 import {
   CreateCallbacksInterface,
   MockCreateData,
@@ -134,7 +134,7 @@ function MockCreate() {
 
   const handleTab = (tab: Tabs) => setTab(tab);
 
-  const onChange = (e: any) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     return setFormData((prev) => ({
       ...prev,
       [(e.target as HTMLInputElement).name]: (e.target as HTMLInputElement)
@@ -266,7 +266,7 @@ function MockCreate() {
           <h1 className={`font-inter text-3xl font-bold text-red-500`}>
             Create Reviewer
           </h1>
-          <p className={`mt-2 text-gray-500 font-sans`}>
+          <p className={`mt-2 font-sans text-gray-500`}>
             Create a reviewer for yourself or for others
           </p>
         </div>

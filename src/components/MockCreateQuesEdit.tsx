@@ -17,7 +17,7 @@ function MockCreateQuesEdit({ choices, question }: MockCreateQuesEditProps) {
         <textarea
           value={question}
           onChange={questions.onTextAreaChange}
-          className="h-full w-full resize-none rounded-md p-4 text-gray-600 lg:text-sm"
+          className="h-full w-full resize-none rounded-md p-4 text-sm text-gray-600 lg:text-sm"
           placeholder="Enter question here"
         />
       </div>
@@ -27,7 +27,7 @@ function MockCreateQuesEdit({ choices, question }: MockCreateQuesEditProps) {
             <input
               type="radio"
               name="mock-q-1"
-              className="mx-2 w-6"
+              className="mx-2 w-6 text-sm"
               onChange={() => {
                 questions.onCorrectChange(item.id);
               }}
@@ -40,7 +40,7 @@ function MockCreateQuesEdit({ choices, question }: MockCreateQuesEditProps) {
                 value={item.text}
                 type="text"
                 placeholder="Enter question choice here"
-                className={`font-inter h-full w-full rounded-md bg-transparent text-gray-500 outline-none focus:text-gray-800 lg:text-xs`}
+                className={`h-full w-full rounded-md bg-transparent font-inter text-xs text-gray-500 outline-none focus:text-gray-800 lg:text-xs`}
               />
               <button
                 onClick={() => {
@@ -54,10 +54,10 @@ function MockCreateQuesEdit({ choices, question }: MockCreateQuesEditProps) {
           </div>
         ))}
       </div>
-      <div className="flex lg:justify-end">
+      <div className="flex md:justify-end">
         <button
           onClick={questions.onAddChoice}
-          className={`h-12 w-full text-white rounded-md bg-red-400 lg:h-8 lg:w-24 lg:text-xs font-inter`}
+          className={`h-10 w-full rounded-md bg-red-400 font-inter text-xs text-white transition ease-in-out hover:bg-red-300 md:w-24 lg:h-12 lg:w-24 lg:text-xs`}
         >
           Add choice
         </button>
@@ -65,7 +65,7 @@ function MockCreateQuesEdit({ choices, question }: MockCreateQuesEditProps) {
       <div className="mt-8 flex w-full justify-end">
         <button
           onClick={questions.onAddQuestion}
-          className={`flex-0 h-12 w-1/2 rounded-md bg-white text-red-500 font-inter font-bold hover:bg-gray-100 lg:w-36 lg:text-sm xl:h-10 xl:text-xs`}
+          className={`flex-0 h-12 w-40 rounded-md bg-white font-inter text-xs font-bold text-red-500 hover:bg-gray-100 lg:w-36 lg:text-sm xl:h-10 xl:text-xs`}
         >
           Add question
         </button>

@@ -7,7 +7,7 @@ import FormRadioButton from "./FormRadioButton";
 interface Props {
   onChange: (e: any) => void;
   onRadioChange: (e: unknown) => void;
-  onSubmit: (e: Event) => void;
+  onSubmit: (e: unknown) => void;
   inputs: RegisterInputs;
   disabled?: boolean;
 }
@@ -27,7 +27,7 @@ function FormRegister({
         linkText="Already have an account? "
         linkMain="Sign In"
       />
-      <form className="mt-8">
+      <form onSubmit={onSubmit} className="mt-8">
         <FormItem twoCols>
           <FormInput
             onChange={onChange}
@@ -85,7 +85,7 @@ function FormRegister({
           />
         </FormItem>
         <div className="flex items-center">
-          <p className={`font-inter mr-8 text-gray-600 font-bold`}>Gender:</p>
+          <p className={`mr-8 font-inter font-bold text-gray-600`}>Gender:</p>
           <FormRadioButton
             label="Male"
             name="gender"
@@ -103,7 +103,7 @@ function FormRegister({
         </div>
         <div
           id="register-submit"
-          className="w-full flex justify-end items-center mt-8"
+          className="mt-8 flex w-full items-center justify-end"
         >
           {/* {disabled && (
             <div className="mr-8">
@@ -117,7 +117,7 @@ function FormRegister({
               disabled
                 ? "bg-red-700"
                 : "bg-red-500 hover:bg-red-600 active:bg-red-700"
-            } transition xl:text-sm text-white ease-in-out w-32 h-12  rounded-md font-bold hover:cursor-pointer`}
+            } h-12 w-32 rounded-md font-bold text-white transition  ease-in-out hover:cursor-pointer xl:text-sm`}
           >
             Register
           </button>

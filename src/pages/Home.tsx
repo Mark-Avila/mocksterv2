@@ -98,7 +98,7 @@ function Home() {
   return (
     <>
       <Navbar />
-      <main className="px-4 xl:px-48 xl:py-16">
+      <main className="mt-12 px-4 xl:mt-0 xl:px-48 xl:py-16">
         <SectionHeader>
           Hello there!{" "}
           <span className="text-red-500">Mark Christian Avila</span>
@@ -119,7 +119,7 @@ function Home() {
         </div>
         <div className="mt-8">
           <SectionHeader>User created Mocks</SectionHeader>
-          <ul className="mt-4 grid grid-cols-3 gap-4">
+          <ul className="mt-4 flex flex-col gap-4 lg:grid lg:grid-cols-4">
             {(mockData as MockData[]).map((item: MockData) => (
               <MockCard
                 key={item._id}
@@ -138,7 +138,7 @@ function Home() {
         <div className="mt-8">
           <SectionHeader>Subjects</SectionHeader>
 
-          <ul className="mt-4 grid grid-cols-4 gap-4">
+          <ul className="mt-4 flex flex-col gap-4 lg:grid lg:grid-cols-4">
             {(subjectData as SubjectData[]).map((item: SubjectData) => (
               <SubjectCard
                 key={item._id}

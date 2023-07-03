@@ -30,7 +30,7 @@ function MockCreateDropdown({
 
   return (
     <div className="mb-8 flex flex-col">
-      <h1 className={`font-bold text-gray-600 lg:text-sm font-inter`}>
+      <h1 className={`font-inter font-bold text-gray-600 lg:text-sm`}>
         {title}
       </h1>
       <div className="relative">
@@ -39,7 +39,7 @@ function MockCreateDropdown({
             {current !== "" ? (
               current
             ) : (
-              <span className={`text-gray-400 font-sans`}>
+              <span className={`font-sans text-gray-400`}>
                 Please select the relevant subject for your reviewer
               </span>
             )}
@@ -58,6 +58,7 @@ function MockCreateDropdown({
                 <MockCreateDropdownItem
                   key={item._id}
                   item={item.name}
+                  desc={item.desc}
                   slug={item.slug}
                   onChange={handleOnChange}
                 />

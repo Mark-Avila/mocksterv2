@@ -146,7 +146,7 @@ function Landing() {
           <ToggleFormContext.Provider value={{ toggleForm: toggleForm }}>
             {isRegister ? (
               <FormRegister
-                onSubmit={onRegisterSubmit}
+                onSubmit={onRegisterSubmit as (e: unknown) => void}
                 inputs={regFormInputs}
                 onChange={onRegisterChange}
                 onRadioChange={onRadioChange}

@@ -1,3 +1,5 @@
+import { limitString } from "../utils";
+
 interface MockGridItemProps {
   label: string;
   value: string;
@@ -40,7 +42,7 @@ function MockCard({
         )}
         <h1 className="my-2 font-inter font-bold text-red-400">{title}</h1>
         <div className="mt-4 grid grid-cols-2 grid-rows-2 gap-y-2">
-          <MockGridItem label="Creator" value={creator} />
+          <MockGridItem label="Creator" value={limitString(creator, 15)} />
           <MockGridItem label="Date Created" value={created} />
           <MockGridItem label="Subject" value={subject} />
           <MockGridItem label="Items" value={items} />
