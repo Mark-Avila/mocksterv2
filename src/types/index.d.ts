@@ -30,6 +30,7 @@ export interface UserData {
   email: string;
   tupid: string;
   gender: string;
+  role: 0 | 1;
 }
 
 export interface MockData {

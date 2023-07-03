@@ -4,6 +4,7 @@ import { FaUser } from "react-icons/fa";
 import { logout } from "../store";
 import { useDispatch } from "react-redux";
 import { AppThunkDispatch } from "../main";
+import { toast } from "react-toastify";
 
 interface NavLinkProps {
   children: ReactNode;
@@ -56,6 +57,8 @@ function Navbar() {
   const handleDropdown = () => setDropdown(!dropdown);
   const dispatch = useDispatch<AppThunkDispatch>();
 
+  const handleOnSettings = () => toast.info("Under maintenance");
+
   return (
     <nav className="flex h-16 flex-shrink-0 justify-between bg-white px-4 shadow-md xl:px-20">
       <ul className="flex h-full w-full items-center justify-start">
@@ -74,7 +77,9 @@ function Navbar() {
           {dropdown && (
             <ul className="absolute -left-28 mt-4 flex w-36 flex-col gap-4 rounded-md bg-white p-2 text-right text-sm font-bold text-gray-400 shadow-md">
               <NavDropdownItem to="/profile">Profile</NavDropdownItem>
-              <NavDropdownItem>Settings</NavDropdownItem>
+              <NavDropdownItem onClick={handleOnSettings}>
+                Settings
+              </NavDropdownItem>
               <NavDropdownItem onClick={() => dispatch(logout())}>
                 Logout
               </NavDropdownItem>

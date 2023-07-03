@@ -6,6 +6,7 @@ import { userService } from "../services";
 import { UserData } from "../types";
 import { createAvatar } from "@dicebear/core";
 import { thumbs } from "@dicebear/collection";
+import { toast } from "react-toastify";
 
 interface ProfileItem {
   label: string;
@@ -85,7 +86,10 @@ function Profile() {
               />
             </div>
             <div>
-              <button className="font-sans text-sm text-gray-500 hover:text-gray-700">
+              <button
+                onClick={() => toast.info("Under maintenance")}
+                className="font-sans text-sm text-gray-500 hover:text-gray-700"
+              >
                 Edit profile
               </button>
             </div>

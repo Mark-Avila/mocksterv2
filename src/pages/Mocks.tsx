@@ -82,7 +82,7 @@ function Mocks() {
   return (
     <>
       <Navbar />
-      <main className="flex h-full flex-col px-4 xl:px-48 xl:pt-16">
+      <main className="flex h-full flex-col px-4 xl:px-48 xl:pt-10">
         <div className="mt-8 flex h-fit w-full flex-col md:flex-row md:items-center md:justify-between ">
           {searchParams.has("subject") ? (
             <SectionHeader>

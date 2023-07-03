@@ -33,7 +33,7 @@ function MockCard({
   onStart,
 }: Props) {
   return (
-    <li className=" list-none rounded-lg border-l-4 border-red-400 bg-white shadow-md">
+    <li className="flex list-none flex-col rounded-lg border-l-4 border-red-400 bg-white shadow-md">
       <div className="p-4">
         {showRecent && (
           <p className="font-sans text-sm font-bold text-slate-400">
@@ -48,7 +48,7 @@ function MockCard({
           <MockGridItem label="Items" value={items} />
         </div>
       </div>
-      <div className="border-t-2 border-slate-300">
+      <div className="mt-auto border-t-2 border-slate-300">
         <button
           onClick={onStart}
           className="m-4 font-inter font-bold text-red-400 transition ease-in-out hover:text-cyan-400"

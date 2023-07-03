@@ -3,13 +3,13 @@ import { Navbar, PageSpinner, SubjectCard } from "../components";
 import SectionHeader from "../components/SectionHeader";
 import { useState, useEffect } from "react";
 import { RootState } from "../main";
-import { subjectService } from "../services";
-import { SubjectData } from "../types";
+import { subjectService, userService } from "../services";
+import { SubjectData, UserData } from "../types";
 import { createSearchParams, useNavigate } from "react-router-dom";
 
 function Subjects() {
   const { data } = useSelector((state: RootState) => state.auth);
-
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [subjectData, setSubjectData] = useState<SubjectData[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
@@ -29,6 +29,15 @@ function Subjects() {
 
     getSubjects();
   }, [data]);
+
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      const response = await userService.getCurrentUser(data as string);
+      setUserData(response);
+    };
+
+    getCurrentUser();
+  }, []);
 
   useEffect(() => {
     if (subjectData) {
@@ -57,17 +66,19 @@ function Subjects() {
   return (
     <>
       <Navbar />
-      <main className="mt-4 px-4 xl:px-48 xl:py-16">
+      <main className="mt-4 px-4 xl:px-48 xl:py-10">
         <div className="flex h-fit w-full items-center justify-between">
           <SectionHeader>
             Browse <span className="text-red-400">subjects</span>
           </SectionHeader>
-          <button
-            onClick={handleOnCreateNew}
-            className="rounded-md bg-red-500 px-4 py-2 font-inter font-bold text-white shadow-md shadow-gray-300 transition ease-in-out hover:bg-red-600"
-          >
-            Create new
-          </button>
+          {userData?.role === 1 && (
+            <button
+              onClick={handleOnCreateNew}
+              className="rounded-md bg-red-500 px-4 py-2 font-inter font-bold text-white shadow-md shadow-gray-300 transition ease-in-out hover:bg-red-600"
+            >
+              Create new
+            </button>
+          )}
         </div>
         <ul className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {(subjectData as SubjectData[]).map((item: SubjectData) => (

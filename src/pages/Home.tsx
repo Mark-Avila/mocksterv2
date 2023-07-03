@@ -1,18 +1,26 @@
 import { MockCard, Navbar, PageSpinner, SubjectCard } from "../components";
 import SectionHeader from "../components/SectionHeader";
 import { useEffect, useState } from "react";
-import { mockService, subjectService } from "../services";
+import { mockService, subjectService, userService } from "../services";
 import { useSelector } from "react-redux";
 import { RootState } from "../main";
 import { MockData, SubjectData, UserData } from "../types";
-import moment from "moment";
-import { Navigate, createSearchParams, useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { convertDate, limitString } from "../utils";
+import { createAvatar } from "@dicebear/core";
+import { thumbs } from "@dicebear/collection";
 
-function HomeProfileCard() {
+interface HomeProfileCardProps {
+  uri: string;
+  onClick: (e: unknown) => void;
+}
+
+function HomeProfileCard({ uri, onClick }: HomeProfileCardProps) {
   return (
     <div className="grid grid-cols-2 overflow-hidden rounded-lg bg-white shadow-md">
-      <div className="bg-slate-400"></div>
+      <div className="h-fit bg-slate-400">
+        <img src={uri} alt="home-user-profile" />
+      </div>
       <div className="flex h-full flex-col">
         <div className="p-4">
           <p className="font-inter font-bold text-slate-600">
@@ -21,7 +29,10 @@ function HomeProfileCard() {
           <p className="font-inter text-sm text-slate-600">TUPM-20-2120</p>
         </div>
         <div className="mt-auto h-14 border-t-2 border-slate-300">
-          <button className="h-full w-fit px-4 font-bold text-red-400">
+          <button
+            onClick={onClick}
+            className="h-full w-fit px-4 font-bold text-red-400"
+          >
             Visit Profile
           </button>
         </div>
@@ -35,6 +46,8 @@ function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [mockData, setMockData] = useState<MockData[] | null>(null);
   const [subjectData, setSubjectData] = useState<SubjectData[] | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [avatar, setAvatar] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
@@ -61,6 +74,22 @@ function Home() {
   }, [data]);
 
   useEffect(() => {
+    const getCurrentUser = async () => {
+      if (data) {
+        const response: UserData = await userService.getCurrentUser(data);
+        setUserData(response);
+        const newAvatar = createAvatar(thumbs, {
+          seed: response._id,
+        });
+        const avatarURI = await newAvatar.toDataUri();
+        setAvatar(avatarURI);
+      }
+    };
+
+    getCurrentUser();
+  }, []);
+
+  useEffect(() => {
     const getSubjects = async () => {
       try {
         if (!data) {
@@ -77,10 +106,10 @@ function Home() {
   }, [data]);
 
   useEffect(() => {
-    if (mockData !== null && subjectData !== null) {
+    if (mockData && subjectData && avatar) {
       setIsLoading(false);
     }
-  }, [mockData, subjectData]);
+  }, [mockData, subjectData, avatar]);
 
   const onMockStart = (id: string) => {
     navigate({
@@ -115,37 +144,16 @@ function Home() {
               return;
             }}
           />
-          <HomeProfileCard />
+          <HomeProfileCard
+            onClick={() => {
+              navigate("/profile");
+            }}
+            uri={avatar as string}
+          />
         </div>
         <div className="mt-8">
           <SectionHeader>User created Mocks</SectionHeader>
           <ul className="mt-4 flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
-            {(mockData as MockData[]).map((item: MockData) => (
-              <MockCard
-                key={item._id}
-                title={item.title}
-                creator={`${(item.author as UserData).fname} ${
-                  (item.author as UserData).lname
-                }`}
-                subject={limitString((item.subject as SubjectData).name, 12)}
-                items={item.count.toString()}
-                created={convertDate(item.createdAt)}
-                onStart={() => onMockStart(item._id)}
-              />
-            ))}
-            {(mockData as MockData[]).map((item: MockData) => (
-              <MockCard
-                key={item._id}
-                title={item.title}
-                creator={`${(item.author as UserData).fname} ${
-                  (item.author as UserData).lname
-                }`}
-                subject={limitString((item.subject as SubjectData).name, 12)}
-                items={item.count.toString()}
-                created={convertDate(item.createdAt)}
-                onStart={() => onMockStart(item._id)}
-              />
-            ))}
             {(mockData as MockData[]).map((item: MockData) => (
               <MockCard
                 key={item._id}
