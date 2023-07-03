@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { RootState } from "../main";
 import { userService } from "../services";
 import { UserData } from "../types";
+import { createAvatar } from "@dicebear/core";
+import { thumbs } from "@dicebear/collection";
 
 interface ProfileItem {
   label: string;
@@ -23,6 +25,7 @@ function Profile() {
   const { data } = useSelector((state: RootState) => state.auth);
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState<UserData | null>(null);
+  const [avatar, setAvatar] = useState<string | null>(null);
 
   useEffect(() => {
     const getUserData = async () => {
@@ -39,10 +42,26 @@ function Profile() {
   }, []);
 
   useEffect(() => {
-    if (userData) {
+    const getAvatar = async () => {
+      if (userData) {
+        const newAvatar = createAvatar(thumbs, {
+          seed: userData._id,
+        });
+
+        const avatarURI = await newAvatar.toDataUri();
+
+        setAvatar(avatarURI);
+      }
+    };
+
+    getAvatar();
+  }, [userData]);
+
+  useEffect(() => {
+    if (userData && avatar) {
       setIsLoading(false);
     }
-  }, [userData]);
+  }, [userData, avatar]);
 
   const handleGender = (gender: string) => {
     return gender === "1" ? "Male" : "Female";
@@ -58,7 +77,13 @@ function Profile() {
       <div className="flex min-h-[75%] w-full items-center justify-center">
         <main className="flex w-96 flex-col items-center rounded-lg bg-white shadow-md">
           <header className="flex items-center gap-8 p-4">
-            <div className="h-14 w-14 rounded-full bg-gray-500"></div>
+            <div className="h-14 w-14 overflow-hidden rounded-full">
+              <img
+                src={avatar as string}
+                alt="user-profile"
+                className="h-full w-full"
+              />
+            </div>
             <div>
               <button className="font-sans text-sm text-gray-500 hover:text-gray-700">
                 Edit profile
