@@ -12,7 +12,7 @@ interface ProfileItem {
 
 function ProfileItem({ label, value }: ProfileItem) {
   return (
-    <li className="flex h-14 items-center justify-between border-t-2 border-gray-200 p-4">
+    <li className="flex h-fit flex-col items-center justify-between border-t-2 border-gray-200 p-4 md:h-14 md:flex-row">
       <p className="text-left text-gray-400">{label}: </p>
       <p className="text-right text-gray-400">{value}</p>
     </li>

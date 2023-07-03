@@ -57,7 +57,7 @@ function Subjects() {
   return (
     <>
       <Navbar />
-      <main className="px-4 xl:px-48 xl:py-16">
+      <main className="mt-4 px-4 xl:px-48 xl:py-16">
         <div className="flex h-fit w-full items-center justify-between">
           <SectionHeader>
             Browse <span className="text-red-400">subjects</span>
@@ -69,7 +69,7 @@ function Subjects() {
             Create new
           </button>
         </div>
-        <ul className="mt-4 grid grid-cols-4 gap-4">
+        <ul className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {(subjectData as SubjectData[]).map((item: SubjectData) => (
             <SubjectCard
               key={item._id}

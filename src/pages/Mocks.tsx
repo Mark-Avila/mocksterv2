@@ -83,7 +83,7 @@ function Mocks() {
     <>
       <Navbar />
       <main className="flex h-full flex-col px-4 xl:px-48 xl:pt-16">
-        <div className="flex h-fit w-full items-center justify-between">
+        <div className="mt-8 flex h-fit w-full flex-col md:flex-row md:items-center md:justify-between ">
           {searchParams.has("subject") ? (
             <SectionHeader>
               <span className="text-red-400">Mocks</span> for "
@@ -96,14 +96,14 @@ function Mocks() {
           )}
           <button
             onClick={handleOnCreateNew}
-            className="rounded-md bg-red-500 px-4 py-2 font-inter font-bold text-white shadow-md shadow-gray-300 transition ease-in-out hover:bg-red-600"
+            className="mt-4 rounded-md bg-red-500 px-4 py-2 font-inter font-bold text-white shadow-md shadow-gray-300 transition ease-in-out hover:bg-red-600 md:mt-0"
           >
             Create new
           </button>
         </div>
 
         {mockData?.length !== 0 && (
-          <ul className="mt-4 grid grid-cols-3 gap-4">
+          <ul className="mt-4 flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
             {(mockData as MockData[]).map((item: MockData) => (
               <MockCard
                 key={item._id}

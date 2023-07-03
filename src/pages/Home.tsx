@@ -98,12 +98,12 @@ function Home() {
   return (
     <>
       <Navbar />
-      <main className="mt-12 px-4 xl:mt-0 xl:px-48 xl:py-16">
+      <main className="mt-12 px-4 pb-8 lg:pb-16 xl:px-48">
         <SectionHeader>
           Hello there!{" "}
           <span className="text-red-500">Mark Christian Avila</span>
         </SectionHeader>
-        <div className="mt-4 grid gap-4 lg:grid-cols-2">
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
           <MockCard
             showRecent
             title="Data Structures and algorithms"
@@ -119,7 +119,33 @@ function Home() {
         </div>
         <div className="mt-8">
           <SectionHeader>User created Mocks</SectionHeader>
-          <ul className="mt-4 flex flex-col gap-4 lg:grid lg:grid-cols-4">
+          <ul className="mt-4 flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
+            {(mockData as MockData[]).map((item: MockData) => (
+              <MockCard
+                key={item._id}
+                title={item.title}
+                creator={`${(item.author as UserData).fname} ${
+                  (item.author as UserData).lname
+                }`}
+                subject={limitString((item.subject as SubjectData).name, 12)}
+                items={item.count.toString()}
+                created={convertDate(item.createdAt)}
+                onStart={() => onMockStart(item._id)}
+              />
+            ))}
+            {(mockData as MockData[]).map((item: MockData) => (
+              <MockCard
+                key={item._id}
+                title={item.title}
+                creator={`${(item.author as UserData).fname} ${
+                  (item.author as UserData).lname
+                }`}
+                subject={limitString((item.subject as SubjectData).name, 12)}
+                items={item.count.toString()}
+                created={convertDate(item.createdAt)}
+                onStart={() => onMockStart(item._id)}
+              />
+            ))}
             {(mockData as MockData[]).map((item: MockData) => (
               <MockCard
                 key={item._id}
@@ -138,7 +164,7 @@ function Home() {
         <div className="mt-8">
           <SectionHeader>Subjects</SectionHeader>
 
-          <ul className="mt-4 flex flex-col gap-4 lg:grid lg:grid-cols-4">
+          <ul className="mt-4 flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-4">
             {(subjectData as SubjectData[]).map((item: SubjectData) => (
               <SubjectCard
                 key={item._id}
