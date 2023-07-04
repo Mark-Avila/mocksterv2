@@ -15,9 +15,16 @@ interface HomeProfileCardProps {
   name: string;
   tupid: string;
   onClick: (e: unknown) => void;
+  role: 0 | 1 | 2;
 }
 
-function HomeProfileCard({ uri, onClick, name, tupid }: HomeProfileCardProps) {
+function HomeProfileCard({
+  uri,
+  onClick,
+  name,
+  tupid,
+  role,
+}: HomeProfileCardProps) {
   return (
     <div className="grid grid-cols-2 overflow-hidden rounded-lg bg-white shadow-md">
       <div className="h-fit bg-slate-400">
@@ -27,6 +34,23 @@ function HomeProfileCard({ uri, onClick, name, tupid }: HomeProfileCardProps) {
         <div className="p-4">
           <p className="font-inter font-bold text-slate-600">{name}</p>
           <p className="font-inter text-sm text-slate-600">{tupid}</p>
+          <div className="mt-2 w-fit">
+            {role === 0 && (
+              <p className="w-full rounded-md bg-red-500 px-2 py-1 text-center text-sm font-bold text-white">
+                Student
+              </p>
+            )}
+            {role === 1 && (
+              <p className="w-full rounded-md bg-yellow-500 px-2 py-1 text-center text-sm font-bold text-white">
+                Teacher
+              </p>
+            )}
+            {role === 2 && (
+              <p className="w-full rounded-md bg-cyan-400 px-2 py-1 text-center text-sm font-bold text-white">
+                Admin
+              </p>
+            )}
+          </div>
         </div>
         <div className="mt-auto h-14 border-t-2 border-slate-300">
           <button
@@ -168,6 +192,7 @@ function Home() {
           <HomeProfileCard
             name={`${userData?.fname} ${userData?.lname}`}
             tupid={userData?.tupid as string}
+            role={userData?.role as 0 | 1 | 2}
             onClick={() => {
               navigate("/profile");
             }}

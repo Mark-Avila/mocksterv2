@@ -181,6 +181,29 @@ function Profile() {
             </div>
           </header>
           <ul className="w-full">
+            <li className="flex h-fit flex-col items-center justify-between border-t-2 border-gray-200 p-4 md:h-14 md:flex-row">
+              <p className="text-left text-gray-400">Role: </p>
+              <div className="text-right text-gray-400">
+                <div className="w-fit">
+                  {userData?.role === 0 && (
+                    <p className="w-full rounded-md bg-red-500 px-2 py-1 text-center text-sm font-bold text-white">
+                      Student
+                    </p>
+                  )}
+                  {userData?.role === 1 && (
+                    <p className="w-full rounded-md bg-yellow-500 px-2 py-1 text-center text-sm font-bold text-white">
+                      Teacher
+                    </p>
+                  )}
+                  {userData?.role === 2 && (
+                    <p className="w-full rounded-md bg-cyan-400 px-2 py-1 text-center text-sm font-bold text-white">
+                      Admin
+                    </p>
+                  )}
+                </div>
+              </div>
+            </li>
+            <ProfileItem label="First Name" value={userData?.fname || ""} />
             <ProfileItem label="First Name" value={userData?.fname || ""} />
             <ProfileItem label="Last Name" value={userData?.lname || ""} />
             <ProfileItem label="TUP-ID" value={userData?.tupid || ""} />
