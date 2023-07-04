@@ -128,13 +128,20 @@ function MockAnswer() {
                 id: response._id as string,
               }).toString(),
             });
+
+            return;
           } catch (err: unknown) {
+            setIsLoading(false);
+            setSubmitDisabled(false);
             toast.error((err as Error).message);
             throw Error((err as Error).message);
           }
         }
       }
     }
+
+    setIsLoading(false);
+    setSubmitDisabled(false);
   };
 
   if (isLoading) {
