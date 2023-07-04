@@ -6,7 +6,6 @@ import FormLogin from "../components/FormLogin";
 import { useDispatch, useSelector } from "react-redux";
 import { login, register, reset } from "../store";
 import { AppThunkDispatch, RootState } from "../main";
-import { useNavigate } from "react-router-dom";
 
 interface RegisterBody {
   fname: string;
