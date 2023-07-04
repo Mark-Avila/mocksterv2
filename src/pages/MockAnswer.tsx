@@ -120,7 +120,7 @@ function MockAnswer() {
             );
             toast.success("Successfully submitted mock test");
             navigate({
-              pathname: "/mocks/results",
+              pathname: "/mocks/result",
               search: createSearchParams({
                 id: response._id as string,
               }).toString(),
