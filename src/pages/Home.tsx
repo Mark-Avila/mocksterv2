@@ -12,10 +12,12 @@ import { thumbs } from "@dicebear/collection";
 
 interface HomeProfileCardProps {
   uri: string;
+  name: string;
+  tupid: string;
   onClick: (e: unknown) => void;
 }
 
-function HomeProfileCard({ uri, onClick }: HomeProfileCardProps) {
+function HomeProfileCard({ uri, onClick, name, tupid }: HomeProfileCardProps) {
   return (
     <div className="grid grid-cols-2 overflow-hidden rounded-lg bg-white shadow-md">
       <div className="h-fit bg-slate-400">
@@ -140,21 +142,30 @@ function Home() {
       <main className="mt-12 px-4 pb-8 lg:pb-16 xl:px-48">
         <SectionHeader>
           Hello there!{" "}
-          <span className="text-red-500">Mark Christian Avila</span>
+          <span className="text-red-500">
+            {userData?.fname} {userData?.lname}
+          </span>
         </SectionHeader>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
-          <MockCard
-            showRecent
-            title="Data Structures and algorithms"
-            creator="Jeeve Bentic"
-            subject="CS123"
-            items="50"
-            created="30/06/2023"
-            onStart={() => {
-              return;
-            }}
-          />
+          {mockData && (
+            <MockCard
+              key={(mockData[0] as MockData)._id}
+              title={(mockData[0] as MockData).title}
+              creator={`${
+                ((mockData[0] as MockData).author as UserData).fname
+              } ${((mockData[0] as MockData).author as UserData).lname}`}
+              subject={limitString(
+                ((mockData[0] as MockData).subject as SubjectData).name,
+                12
+              )}
+              items={(mockData[0] as MockData).count.toString()}
+              created={convertDate((mockData[0] as MockData).createdAt)}
+              onStart={() => onMockStart((mockData[0] as MockData)._id)}
+            />
+          )}
           <HomeProfileCard
+            name={`${userData?.fname} ${userData?.lname}`}
+            tupid={userData?.tupid as string}
             onClick={() => {
               navigate("/profile");
             }}
