@@ -35,6 +35,12 @@ function Landing() {
     dispatch(reset());
   }, [error]);
 
+  useEffect(() => {
+    if (message !== "") {
+      toast.success(message);
+    }
+  }, [message]);
+
   const dispatch = useDispatch<AppThunkDispatch>();
 
   const [regFormInputs, setRegFormInputs] = useState<RegisterInputs>({
@@ -68,7 +74,9 @@ function Landing() {
       gender: regFormInputs.gender ? 1 : 0,
     };
 
-    dispatch(register(userData));
+    dispatch(register(userData)).then(() => {
+      setIsRegister(false);
+    });
   };
 
   const onLoginSubmit = (e: Event) => {

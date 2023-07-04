@@ -1,7 +1,7 @@
 import { ReactNode, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
-import { logout } from "../store";
+import { logout, reset } from "../store";
 import { useDispatch } from "react-redux";
 import { AppThunkDispatch } from "../main";
 import { toast } from "react-toastify";
@@ -80,7 +80,12 @@ function Navbar() {
               <NavDropdownItem onClick={handleOnSettings}>
                 Settings
               </NavDropdownItem>
-              <NavDropdownItem onClick={() => dispatch(logout())}>
+              <NavDropdownItem
+                onClick={() => {
+                  dispatch(reset());
+                  dispatch(logout());
+                }}
+              >
                 Logout
               </NavDropdownItem>
             </ul>
