@@ -86,7 +86,9 @@ function Subjects() {
               key={item._id}
               name={item.name}
               desc={item.desc}
-              onClick={() => handleItemClick(item.name, item.slug)}
+              onClick={() => {
+                handleItemClick(item.name, item.slug);
+              }}
             />
           ))}
         </ul>

@@ -111,6 +111,16 @@ function Home() {
     }
   }, [mockData, subjectData, avatar, userData]);
 
+  const handleItemClick = (slug: string, title: string) => {
+    navigate({
+      pathname: "/mocks",
+      search: createSearchParams({
+        title: title,
+        subject: slug,
+      }).toString(),
+    });
+  };
+
   const onMockStart = (id: string) => {
     navigate({
       pathname: "/mocks/answer",
@@ -178,9 +188,7 @@ function Home() {
                 key={item._id}
                 name={item.name}
                 desc={item.desc}
-                onClick={() => {
-                  return;
-                }}
+                onClick={() => handleItemClick(item.name, item.slug)}
               />
             ))}
           </ul>
