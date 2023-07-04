@@ -53,20 +53,18 @@ function Home() {
 
   useEffect(() => {
     const getMockData = async () => {
-      try {
-        if (!data) {
-          throw Error("Token not found");
+      if (data) {
+        try {
+          const response = await mockService.getMocks({
+            token: data,
+            populate: "subject author",
+            excludePopulate: "-password -gender -createdAt -updatedAt",
+            excludeLocal: "-items",
+          });
+          setMockData(response);
+        } catch (err: unknown) {
+          throw Error((err as Error).message);
         }
-
-        const response = await mockService.getMocks({
-          token: data,
-          populate: "subject author",
-          excludePopulate: "-password -gender -createdAt -updatedAt",
-          excludeLocal: "-items",
-        });
-        setMockData(response);
-      } catch (err: unknown) {
-        throw Error((err as Error).message);
       }
     };
 
@@ -87,7 +85,7 @@ function Home() {
     };
 
     getCurrentUser();
-  }, []);
+  }, [data]);
 
   useEffect(() => {
     const getSubjects = async () => {
