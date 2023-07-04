@@ -1,6 +1,6 @@
 import QuestionChoice from "./QuestionChoice";
 import { QuestionBody } from "../types";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 
 interface QuestionBoxProps extends QuestionBody {
   number: number | string;
