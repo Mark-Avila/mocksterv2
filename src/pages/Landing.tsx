@@ -37,7 +37,6 @@ function Landing() {
   }, [error]);
 
   const dispatch = useDispatch<AppThunkDispatch>();
-  const navigate = useNavigate();
 
   const [regFormInputs, setRegFormInputs] = useState<RegisterInputs>({
     fname: "",
