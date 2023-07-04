@@ -25,6 +25,8 @@ function MockAnswer() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
+  const [submitDisabled, setSubmitDisabled] = useState(false);
+
   useEffect(() => {
     const getMockData = async () => {
       if (searchParams.has("id") && data) {
@@ -86,6 +88,7 @@ function MockAnswer() {
     (e as FormDataEvent).preventDefault();
 
     setIsLoading(true);
+    setSubmitDisabled(true);
 
     if (mockData !== null) {
       const items = mockData.items;
@@ -181,6 +184,7 @@ function MockAnswer() {
         </button>
         <button
           onClick={handleOnSubmit}
+          disabled={submitDisabled}
           className={`h-14 w-24 rounded-md border-2 border-red-500 bg-red-500 font-inter shadow-md shadow-gray-300 transition ease-in-out hover:bg-red-600 md:h-16 md:w-36 md:text-xl lg:text-base xl:h-12`}
         >
           <span className="font-bold text-white">Submit</span>
