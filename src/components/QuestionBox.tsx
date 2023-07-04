@@ -52,12 +52,6 @@ function QuestionBox({
             >
               <FaTrash />
             </button>
-            <button
-              onClick={handleOnClick}
-              className="text-red-400 hover:text-red-500"
-            >
-              <FaEdit />
-            </button>
           </div>
         )}
       </div>
