@@ -130,8 +130,8 @@ function Profile() {
     }
   }, [userData, avatar, mockData, resultsData]);
 
-  const handleGender = (gender: string) => {
-    return gender === "1" ? "Male" : "Female";
+  const handleGender = (gender: number) => {
+    return gender === 1 ? "Male" : "Female";
   };
 
   const onMockStart = (id: string) => {
@@ -184,7 +184,7 @@ function Profile() {
             <ProfileItem label="TUP-ID" value={userData?.tupid || ""} />
             <ProfileItem
               label="Gender"
-              value={handleGender(userData?.gender || "1")}
+              value={handleGender(parseInt(userData?.gender as string) || 1)}
             />
           </ul>
         </aside>
