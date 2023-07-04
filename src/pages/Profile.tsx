@@ -204,7 +204,6 @@ function Profile() {
               </div>
             </li>
             <ProfileItem label="First Name" value={userData?.fname || ""} />
-            <ProfileItem label="First Name" value={userData?.fname || ""} />
             <ProfileItem label="Last Name" value={userData?.lname || ""} />
             <ProfileItem label="TUP-ID" value={userData?.tupid || ""} />
             <ProfileItem
