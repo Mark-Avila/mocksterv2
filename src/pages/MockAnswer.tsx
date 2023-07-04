@@ -155,7 +155,7 @@ function MockAnswer() {
     >
       <header className="rounded-md bg-red-500 shadow-md shadow-gray-400 md:min-h-[150px]">
         <h1
-          className={`p-4 font-inter text-xl font-bold md:text-3xl lg:text-2xl`}
+          className={`p-4 font-inter text-xl font-bold text-white md:text-3xl lg:text-2xl`}
         >
           {`(Mock) ${mockData ? mockData.title : "..."}`}
         </h1>
