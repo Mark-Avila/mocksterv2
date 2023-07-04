@@ -241,6 +241,7 @@ function Profile() {
               {(mockData as MockData[]).map((item: MockData) => (
                 <MockCard
                   id={item._id}
+                  role={(item.author as UserData).role}
                   handleLoading={handleIsLoading}
                   curr_user_id={userData?._id as string}
                   creator_id={(item.author as UserData)._id}

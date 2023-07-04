@@ -29,6 +29,7 @@ interface Props {
   created: string;
   items: string;
   subject: string;
+  role: 0 | 1 | 2;
   onStart: (e: unknown) => void;
   handleLoading: (isLoading: boolean) => void;
 }
@@ -43,6 +44,7 @@ function MockCard({
   created,
   items,
   subject,
+  role,
   onStart,
   handleLoading,
 }: Props) {
@@ -87,7 +89,7 @@ function MockCard({
         >
           Start
         </button>
-        {curr_user_id === creator_id ? (
+        {curr_user_id === creator_id || role >= 1 ? (
           willDelete ? (
             <div className="flex w-full items-center justify-end">
               <p className="mr-4 text-xs text-red-400">Are you sure?</p>

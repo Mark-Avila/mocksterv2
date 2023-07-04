@@ -71,7 +71,7 @@ function Subjects() {
           <SectionHeader>
             Browse <span className="text-red-400">subjects</span>
           </SectionHeader>
-          {userData?.role === 1 && (
+          {(userData?.role as 0 | 1 | 2) >= 1 && (
             <button
               onClick={handleOnCreateNew}
               className="rounded-md bg-red-500 px-4 py-2 font-inter font-bold text-white shadow-md shadow-gray-300 transition ease-in-out hover:bg-red-600"

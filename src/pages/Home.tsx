@@ -171,6 +171,7 @@ function Home() {
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           {mockData && (
             <MockCard
+              role={(mockData[0].author as UserData).role}
               id={(mockData[0] as MockData)._id}
               key={(mockData[0] as MockData)._id}
               curr_user_id={userData?._id as string}
@@ -204,6 +205,7 @@ function Home() {
           <ul className="mt-4 flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
             {(mockData as MockData[]).map((item: MockData) => (
               <MockCard
+                role={userData?.role as 0 | 1 | 2}
                 id={item._id}
                 curr_user_id={userData?._id as string}
                 creator_id={(item.author as UserData)._id}

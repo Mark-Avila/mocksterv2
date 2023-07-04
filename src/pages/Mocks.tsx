@@ -123,6 +123,7 @@ function Mocks() {
             {(mockData as MockData[]).map((item: MockData) => (
               <MockCard
                 handleLoading={handleIsLoading}
+                role={userData?.role as 0 | 1 | 2}
                 id={item._id}
                 curr_user_id={userData?._id as string}
                 creator_id={(item.author as UserData)._id}
