@@ -37,7 +37,7 @@ const getResultById = async ({
     },
   };
 
-  const response = await axios.get(API_URL + result_id, config);
+  const response = await axios.get(`${API_URL}/${result_id}`, config);
 
   return response.data;
 };
@@ -49,7 +49,7 @@ const getResultByUser = async (user_id: string, token: string) => {
     },
   };
 
-  const response = await axios.get(`${API_URL + user_id}/user`, config);
+  const response = await axios.get(`${API_URL}/${user_id}/user`, config);
 
   return response.data;
 };
