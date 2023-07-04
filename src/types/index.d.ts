@@ -110,6 +110,8 @@ export interface ResultData {
   score: number;
   total: number;
   answers: QuestionAnswers[];
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 interface RequestParams {

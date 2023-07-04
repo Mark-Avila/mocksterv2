@@ -14,10 +14,25 @@ const createMock = async (mockData: MockData, token: string) => {
   return response.data;
 };
 
-const getMocksByUserId = async (token: string, id: string) => {
+interface GetMocksByUser extends RequestParams {
+  id: string;
+}
+
+const getMocksByUserId = async ({
+  token,
+  populate,
+  excludePopulate,
+  excludeLocal,
+  id,
+}: GetMocksByUser) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
+    },
+    params: {
+      populate: populate || "",
+      excludePopulate: excludePopulate || "",
+      excludeLocal: excludeLocal || "",
     },
   };
 

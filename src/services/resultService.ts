@@ -42,10 +42,25 @@ const getResultById = async ({
   return response.data;
 };
 
-const getResultByUser = async (user_id: string, token: string) => {
+interface GetResultByUser extends RequestParams {
+  user_id: string;
+}
+
+const getResultByUser = async ({
+  token,
+  populate,
+  excludePopulate,
+  excludeLocal,
+  user_id,
+}: GetResultByUser) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
+    },
+    params: {
+      populate: populate || "",
+      excludePopulate: excludePopulate || "",
+      excludeLocal: excludeLocal || "",
     },
   };
 
