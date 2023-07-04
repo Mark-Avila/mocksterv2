@@ -25,10 +25,8 @@ function HomeProfileCard({ uri, onClick, name, tupid }: HomeProfileCardProps) {
       </div>
       <div className="flex h-full flex-col">
         <div className="p-4">
-          <p className="font-inter font-bold text-slate-600">
-            Mark Christian Avila
-          </p>
-          <p className="font-inter text-sm text-slate-600">TUPM-20-2120</p>
+          <p className="font-inter font-bold text-slate-600">{name}</p>
+          <p className="font-inter text-sm text-slate-600">{tupid}</p>
         </div>
         <div className="mt-auto h-14 border-t-2 border-slate-300">
           <button
