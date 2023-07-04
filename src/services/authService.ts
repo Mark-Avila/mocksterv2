@@ -20,7 +20,7 @@ const register = async (userData: RegisterData) => {
   const response = await axios.post(`${API_URL}/register`, userData);
 
   if (response.data) {
-    localStorage.setItem("token", JSON.stringify(response.data));
+    localStorage.setItem("token", JSON.stringify(response.data.token));
   }
 
   return response.data;

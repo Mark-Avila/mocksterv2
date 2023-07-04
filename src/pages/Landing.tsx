@@ -6,6 +6,7 @@ import FormLogin from "../components/FormLogin";
 import { useDispatch, useSelector } from "react-redux";
 import { login, register, reset } from "../store";
 import { AppThunkDispatch, RootState } from "../main";
+import { useNavigate } from "react-router-dom";
 
 interface RegisterBody {
   fname: string;
@@ -36,6 +37,7 @@ function Landing() {
   }, [error]);
 
   const dispatch = useDispatch<AppThunkDispatch>();
+  const navigate = useNavigate();
 
   const [regFormInputs, setRegFormInputs] = useState<RegisterInputs>({
     fname: "",
