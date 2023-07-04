@@ -36,7 +36,7 @@ function Landing() {
   }, [error]);
 
   useEffect(() => {
-    if (message !== "") {
+    if (message !== "" && !error) {
       toast.success(message);
     }
   }, [message]);

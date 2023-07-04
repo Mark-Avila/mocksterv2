@@ -128,6 +128,8 @@ function Home() {
     });
   };
 
+  const handleIsLoading = (isLoading: boolean) => setIsLoading(isLoading);
+
   if (isLoading) {
     return <PageSpinner />;
   }
@@ -145,7 +147,11 @@ function Home() {
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           {mockData && (
             <MockCard
+              id={(mockData[0] as MockData)._id}
               key={(mockData[0] as MockData)._id}
+              curr_user_id={userData?._id as string}
+              creator_id={(mockData[0].author as UserData)._id}
+              handleLoading={handleIsLoading}
               title={(mockData[0] as MockData).title}
               creator={`${
                 ((mockData[0] as MockData).author as UserData).fname
@@ -173,6 +179,10 @@ function Home() {
           <ul className="mt-4 flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
             {(mockData as MockData[]).map((item: MockData) => (
               <MockCard
+                id={item._id}
+                curr_user_id={userData?._id as string}
+                creator_id={(item.author as UserData)._id}
+                handleLoading={handleIsLoading}
                 key={item._id}
                 title={item.title}
                 creator={`${(item.author as UserData).fname} ${

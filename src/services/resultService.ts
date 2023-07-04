@@ -69,10 +69,22 @@ const getResultByUser = async ({
   return response.data;
 };
 
+const deleteResultsByMockId = async (mock_id: string, token: string) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.delete(`${API_URL}/${mock_id}`, config);
+  return response.data;
+};
+
 const resultService = {
   createResult,
   getResultById,
   getResultByUser,
+  deleteResultsByMockId,
 };
 
 export default resultService;

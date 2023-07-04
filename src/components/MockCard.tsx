@@ -1,4 +1,10 @@
+import { FaTrash } from "react-icons/fa";
 import { limitString } from "../utils";
+import { useState } from "react";
+import { mockService, resultService } from "../services";
+import { useSelector } from "react-redux";
+import { RootState } from "../main";
+import { useNavigate } from "react-router-dom";
 
 interface MockGridItemProps {
   label: string;
@@ -14,16 +20,23 @@ function MockGridItem({ label, value }: MockGridItemProps) {
 }
 
 interface Props {
+  id: string;
+  curr_user_id: string;
   showRecent?: boolean;
+  creator_id: string;
   title: string;
   creator: string;
   created: string;
   items: string;
   subject: string;
   onStart: (e: unknown) => void;
+  handleLoading: (isLoading: boolean) => void;
 }
 
 function MockCard({
+  id,
+  curr_user_id,
+  creator_id,
   showRecent,
   title,
   creator,
@@ -31,7 +44,26 @@ function MockCard({
   items,
   subject,
   onStart,
+  handleLoading,
 }: Props) {
+  const { data } = useSelector((state: RootState) => state.auth);
+  const [willDelete, setWillDelete] = useState(false);
+  const navigate = useNavigate();
+
+  const onMockDelete = async () => {
+    handleLoading(true);
+
+    if (data) {
+      try {
+        await resultService.deleteResultsByMockId(id, data);
+        await mockService.deleteMock(id, data);
+        navigate(0);
+      } catch (err: unknown) {
+        throw Error((err as Error).message);
+      }
+    }
+  };
+
   return (
     <li className="flex list-none flex-col rounded-lg border-l-4 border-red-400 bg-white shadow-md">
       <div className="p-4">
@@ -48,13 +80,41 @@ function MockCard({
           <MockGridItem label="Items" value={items} />
         </div>
       </div>
-      <div className="mt-auto border-t-2 border-slate-300">
+      <div className="mt-auto flex items-center justify-between border-t-2 border-slate-300 p-4">
         <button
           onClick={onStart}
-          className="m-4 font-inter font-bold text-red-400 transition ease-in-out hover:text-cyan-400"
+          className="font-inter font-bold text-red-400 transition ease-in-out hover:text-cyan-400"
         >
           Start
         </button>
+        {curr_user_id === creator_id ? (
+          willDelete ? (
+            <div className="flex w-full items-center justify-end">
+              <p className="mr-4 text-xs text-red-400">Are you sure?</p>
+              <button
+                onClick={onMockDelete}
+                className="mr-4 font-bold text-red-400 hover:text-red-500"
+              >
+                Yes
+              </button>
+              <button
+                onClick={() => setWillDelete(false)}
+                className="font-bold text-slate-400 hover:text-cyan-500"
+              >
+                No
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setWillDelete(true)}
+              className="text-red-200 hover:text-red-400"
+            >
+              <FaTrash />
+            </button>
+          )
+        ) : (
+          <></>
+        )}
       </div>
     </li>
   );

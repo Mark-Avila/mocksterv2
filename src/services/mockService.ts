@@ -98,9 +98,21 @@ const getMockById = async (token: string, id: string) => {
   return response.data;
 };
 
+const deleteMock = async (id: string, token: string) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.delete(`${API_URL}/${id}`, config);
+  return response.data;
+};
+
 const mockService = {
   createMock,
   getMocks,
+  deleteMock,
   getMocksBySubject,
   getMocksByUserId,
   getMockById,

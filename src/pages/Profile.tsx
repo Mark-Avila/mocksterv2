@@ -152,6 +152,8 @@ function Profile() {
     });
   };
 
+  const handleIsLoading = (isLoading: boolean) => setIsLoading(isLoading);
+
   if (isLoading) {
     return <PageSpinner />;
   }
@@ -215,6 +217,10 @@ function Profile() {
             <ul className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
               {(mockData as MockData[]).map((item: MockData) => (
                 <MockCard
+                  id={item._id}
+                  handleLoading={handleIsLoading}
+                  curr_user_id={userData?._id as string}
+                  creator_id={(item.author as UserData)._id}
                   key={item._id}
                   title={item.title}
                   creator={`${(item.author as UserData).fname} ${

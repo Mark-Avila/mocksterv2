@@ -3,7 +3,7 @@ import { MockCard, Navbar, PageSpinner } from "../components";
 import SectionHeader from "../components/SectionHeader";
 import { useEffect, useState } from "react";
 import { RootState } from "../main";
-import { mockService } from "../services";
+import { mockService, userService } from "../services";
 import { MockData, SubjectData, UserData } from "../types";
 import { convertDate, limitString } from "../utils";
 import {
@@ -15,46 +15,60 @@ import {
 function Mocks() {
   const { data } = useSelector((state: RootState) => state.auth);
   const [mockData, setMockData] = useState<MockData[] | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getMockData = async () => {
-      try {
-        if (!data) {
-          throw Error("Token not found");
+    const getCurrentUser = async () => {
+      if (data) {
+        try {
+          const response = await userService.getCurrentUser(data);
+          setUserData(response);
+        } catch (err: unknown) {
+          throw Error((err as Error).message);
         }
+      }
+    };
 
-        if (searchParams.has("title")) {
-          const response = await mockService.getMocksBySubject({
+    getCurrentUser();
+  }, []);
+
+  useEffect(() => {
+    const getMockData = async () => {
+      if (data && userData) {
+        try {
+          if (searchParams.has("title")) {
+            const response = await mockService.getMocksBySubject({
+              token: data,
+              populate: "subject author",
+              excludePopulate: "-password -gender -createdAt -updatedAt",
+              excludeLocal: "-items",
+              slug: searchParams.get("title") as string,
+            });
+
+            setMockData(response);
+            return;
+          }
+
+          const response = await mockService.getMocks({
             token: data,
             populate: "subject author",
             excludePopulate: "-password -gender -createdAt -updatedAt",
             excludeLocal: "-items",
-            slug: searchParams.get("title") as string,
           });
 
           setMockData(response);
           return;
+        } catch (err: unknown) {
+          throw Error((err as Error).message);
         }
-
-        const response = await mockService.getMocks({
-          token: data,
-          populate: "subject author",
-          excludePopulate: "-password -gender -createdAt -updatedAt",
-          excludeLocal: "-items",
-        });
-
-        setMockData(response);
-        return;
-      } catch (err: unknown) {
-        throw Error((err as Error).message);
       }
     };
 
     getMockData();
-  }, [data]);
+  }, [data, userData]);
 
   useEffect(() => {
     if (mockData) {
@@ -70,6 +84,8 @@ function Mocks() {
       }).toString(),
     });
   };
+
+  const handleIsLoading = (isLoading: boolean) => setIsLoading(isLoading);
 
   const handleOnCreateNew = () => {
     navigate("/mocks/create");
@@ -106,6 +122,10 @@ function Mocks() {
           <ul className="mt-4 flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
             {(mockData as MockData[]).map((item: MockData) => (
               <MockCard
+                handleLoading={handleIsLoading}
+                id={item._id}
+                curr_user_id={userData?._id as string}
+                creator_id={(item.author as UserData)._id}
                 key={item._id}
                 title={item.title}
                 onStart={() => onMockStart(item._id)}
