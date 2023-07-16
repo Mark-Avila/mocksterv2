@@ -129,6 +129,10 @@ function Landing() {
       <div
         className={`bg-bright bg-studying box-border hidden h-full w-full bg-red-500 bg-cover p-12 font-inter xl:block`}
       >
+        <img
+          src="https://media.wired.com/photos/6340c6c2f93a1584dc57f353/master/w_2560%2Cc_limit/Tips-and-Apps-to-Help-Students-Gear-GettyImages-1132647177.jpg"
+          alt="landing-photo"
+        />
         <h1 className={`font-inter text-7xl font-bold text-white`}>Mockster</h1>
         <div className="my-8 h-2 w-32 bg-white"></div>
         <p className={`w-3/4 font-inter text-3xl font-bold text-white`}>
