@@ -124,23 +124,29 @@ function Landing() {
 
   return (
     <main
-      className={`flex h-full min-h-full items-center justify-between font-inter xl:grid xl:grid-cols-2`}
+      className={`relative flex h-full min-h-full items-center justify-between overflow-hidden font-inter xl:grid xl:grid-cols-2`}
     >
       <div
-        className={`bg-bright bg-studying box-border hidden h-full w-full bg-red-500 bg-cover p-12 font-inter xl:block`}
+        className={`bg-bright bg-studying box-border hidden h-full w-full overflow-hidden bg-red-500 bg-cover p-12 font-inter xl:block`}
       >
         <img
           src="https://media.wired.com/photos/6340c6c2f93a1584dc57f353/master/w_2560%2Cc_limit/Tips-and-Apps-to-Help-Students-Gear-GettyImages-1132647177.jpg"
           alt="landing-photo"
+          className="absolute left-0 top-0 z-10 h-full"
         />
-        <h1 className={`font-inter text-7xl font-bold text-white`}>Mockster</h1>
-        <div className="my-8 h-2 w-32 bg-white"></div>
-        <p className={`w-3/4 font-inter text-3xl font-bold text-white`}>
-          Practice makes perfect with when it’s like the real thing
-        </p>
+        <div className="absolute left-0 top-0 z-20 h-full w-full bg-red-900 opacity-70"></div>
+        <div className="absolute z-20">
+          <h1 className={`z-50 font-inter text-7xl font-bold text-white`}>
+            Mockster
+          </h1>
+          <div className="z-50 my-8 h-2 w-32 bg-white"></div>
+          <p className={`z-50 w-3/4 font-inter text-3xl font-bold text-white`}>
+            Practice makes perfect with when it’s like the real thing
+          </p>
+        </div>
       </div>
       <div
-        className={`relative box-border flex h-full w-full items-center justify-center bg-blue-100 px-10`}
+        className={`relative z-20 box-border flex h-full w-full items-center justify-center bg-blue-100 px-10`}
       >
         {/*Right container*/}
         <div className="w-full lg:w-8/12 xl:w-[400px]">
